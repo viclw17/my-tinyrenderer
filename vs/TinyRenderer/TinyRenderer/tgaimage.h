@@ -25,7 +25,7 @@ struct TGA_Header {
 struct TGAColor {
 	union {
 		struct {
-			unsigned char b, g, r, a;
+			unsigned char b, g, r, a; //unsigned
 		};
 		unsigned char raw[4];
 		unsigned int val;

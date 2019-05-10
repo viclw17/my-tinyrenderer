@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include <learnopengl/shader_victor.h>
+
 // callback
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -10,18 +12,21 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH  = 600;
 const unsigned int SCR_HEIGHT = 600;
 
-const char *vertexShaderSource = "#version 330 core\n"
+/*
+const char *vertexShaderSource = 
+"#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "void main()\n"
 "{\n"
 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "}\0";
-const char *fragmentShaderSource = "#version 330 core\n"
+const char *fragmentShaderSource = 
+"#version 330 core\n"
 "out vec4 FragColor;\n"
 "void main()\n"
 "{\n"
 "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\n\0";
+"}\n\0";*/
 
 int main()
 {
@@ -31,6 +36,10 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	//GLint nrAttributes;
+	//glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	//std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 	
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
@@ -56,7 +65,7 @@ int main()
 		return -1;
 	}
 	
-	
+	/*
 	// build and compile our shader program
 	// ------------------------------------
 	// vertex shader
@@ -98,7 +107,17 @@ int main()
 	}
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-	
+	*/
+
+	// build and compile our shader program
+	// ------------------------------------
+
+	Shader ourShader(
+		"./src/shader.vs",  // use / not \ from F:\Program Files\... !
+		"./src/shader.fs"
+	); 
+	// you can name your shader files however you like
+
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
 	float vertices[] = {
@@ -144,7 +163,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		// draw our first triangle
-		glUseProgram(shaderProgram);
+		//glUseProgram(shaderProgram);
+		ourShader.use();
+
 		glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		// glBindVertexArray(0); // no need to unbind it every time

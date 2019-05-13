@@ -9,8 +9,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
-const unsigned int SCR_WIDTH  = 600;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH  = 400;
+const unsigned int SCR_HEIGHT = 400;
 
 /*
 const char *vertexShaderSource = 
@@ -112,10 +112,18 @@ int main()
 	// build and compile our shader program
 	// ------------------------------------
 
-	Shader ourShader(
-		"./src/shader.vs",  // use / not \ from F:\Program Files\... !
-		"./src/shader.fs"
-	); 
+    Shader ourShader(
+        "./src/shader.vs",  // use / not \ from F:\Program Files\... !
+        "./src/shader.fs"
+    );
+    
+#ifdef __APPLE__
+    ourShader = Shader(
+     "shader.vs",  // now the files are located in DerivedData/...
+     "shader.fs"
+     );
+#endif
+    
 	// you can name your shader files however you like
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
@@ -159,7 +167,7 @@ int main()
 		
 		// render
 		// ------
-		glClearColor(.0f, .0f, .0f, 1.0f);
+		glClearColor(1,1,1, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		// draw our first triangle

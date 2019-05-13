@@ -14,6 +14,13 @@
 		99CD910422890AE5008F623A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910322890AE5008F623A /* IOKit.framework */; };
 		99CD925822890B2F008F623A /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 99CD914A22890B2F008F623A /* glad.c */; };
 		99CD925C22890C69008F623A /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD925B22890C69008F623A /* libglfw3.a */; };
+		99CD926A2289109B008F623A /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 99CD914A22890B2F008F623A /* glad.c */; };
+		99CD926C2289109B008F623A /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD925B22890C69008F623A /* libglfw3.a */; };
+		99CD926D2289109B008F623A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910322890AE5008F623A /* IOKit.framework */; };
+		99CD926E2289109B008F623A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910122890ADF008F623A /* CoreVideo.framework */; };
+		99CD926F2289109B008F623A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
+		99CD92702289109B008F623A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
+		99CD9277228910F9008F623A /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD9276228910F9008F623A /* texture.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,10 +33,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		99CD92712289109B008F623A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		99CD90EE22890AA3008F623A /* learn-opengl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99CD90EE22890AA3008F623A /* learn-opengl-simple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-simple"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CD90F922890AC1008F623A /* hello_triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hello_triangle.cpp; path = ../../../src/hello_triangle.cpp; sourceTree = "<group>"; };
 		99CD90FD22890AD4008F623A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		99CD90FF22890ADA008F623A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -297,8 +313,15 @@
 		99CD925322890B2F008F623A /* type_aligned.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = type_aligned.hpp; sourceTree = "<group>"; };
 		99CD925B22890C69008F623A /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../lib/osx/libglfw3.a; sourceTree = "<group>"; };
 		99CD925F22890D95008F623A /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
-		99CD926222890ECC008F623A /* shader.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader.fs; path = "DerivedData/learn-opengl/Build/Products/Debug/shader.fs"; sourceTree = "<group>"; };
-		99CD926322890ECC008F623A /* shader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader.vs; path = "DerivedData/learn-opengl/Build/Products/Debug/shader.vs"; sourceTree = "<group>"; };
+		99CD92752289109B008F623A /* learn-opengl-texture */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-texture"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99CD9276228910F9008F623A /* texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
+		99CD927A22891281008F623A /* shader.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.fs; sourceTree = "<group>"; };
+		99CD927B22891281008F623A /* shader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vs; sourceTree = "<group>"; };
+		99CD927D228912A9008F623A /* shader.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader.vs; sourceTree = "<group>"; };
+		99CD927E228912C4008F623A /* shader.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader.fs; sourceTree = "<group>"; };
+		99CD927F22891349008F623A /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		99CD928022891569008F623A /* container.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = container.jpg; sourceTree = "<group>"; };
+		99CD928D228919F3008F623A /* SOIL.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = SOIL.lib; path = ../../lib/SOIL.lib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,6 +337,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99CD926B2289109B008F623A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99CD926C2289109B008F623A /* libglfw3.a in Frameworks */,
+				99CD926D2289109B008F623A /* IOKit.framework in Frameworks */,
+				99CD926E2289109B008F623A /* CoreVideo.framework in Frameworks */,
+				99CD926F2289109B008F623A /* OpenGL.framework in Frameworks */,
+				99CD92702289109B008F623A /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -323,8 +358,7 @@
 				99CD910722890B2F008F623A /* includes */,
 				99CD90F022890AA3008F623A /* learn-opengl */,
 				99CD90EF22890AA3008F623A /* Products */,
-				99CD926222890ECC008F623A /* shader.fs */,
-				99CD926322890ECC008F623A /* shader.vs */,
+				99CD926422891037008F623A /* Shaders */,
 				99CD90FC22890AD4008F623A /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -332,7 +366,8 @@
 		99CD90EF22890AA3008F623A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				99CD90EE22890AA3008F623A /* learn-opengl */,
+				99CD90EE22890AA3008F623A /* learn-opengl-simple */,
+				99CD92752289109B008F623A /* learn-opengl-texture */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -341,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				99CD90F922890AC1008F623A /* hello_triangle.cpp */,
+				99CD9276228910F9008F623A /* texture.cpp */,
 			);
 			path = "learn-opengl";
 			sourceTree = "<group>";
@@ -348,6 +384,7 @@
 		99CD90FC22890AD4008F623A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99CD928D228919F3008F623A /* SOIL.lib */,
 				99CD925B22890C69008F623A /* libglfw3.a */,
 				99CD910322890AE5008F623A /* IOKit.framework */,
 				99CD910122890ADF008F623A /* CoreVideo.framework */,
@@ -360,6 +397,7 @@
 		99CD910722890B2F008F623A /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				99CD927F22891349008F623A /* stb_image.h */,
 				99CD913F22890B2F008F623A /* learnopengl */,
 				99CD914822890B2F008F623A /* glad */,
 				99CD914B22890B2F008F623A /* GL */,
@@ -690,12 +728,41 @@
 			path = gtx;
 			sourceTree = "<group>";
 		};
+		99CD926422891037008F623A /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				99CD927C22891285008F623A /* texture */,
+				99CD927922891258008F623A /* simple */,
+			);
+			name = Shaders;
+			path = "DerivedData/learn-opengl/Build/Products/Debug/Shaders";
+			sourceTree = "<group>";
+		};
+		99CD927922891258008F623A /* simple */ = {
+			isa = PBXGroup;
+			children = (
+				99CD927B22891281008F623A /* shader.vs */,
+				99CD927A22891281008F623A /* shader.fs */,
+			);
+			path = simple;
+			sourceTree = "<group>";
+		};
+		99CD927C22891285008F623A /* texture */ = {
+			isa = PBXGroup;
+			children = (
+				99CD928022891569008F623A /* container.jpg */,
+				99CD927D228912A9008F623A /* shader.vs */,
+				99CD927E228912C4008F623A /* shader.fs */,
+			);
+			path = texture;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		99CD90ED22890AA3008F623A /* learn-opengl */ = {
+		99CD90ED22890AA3008F623A /* learn-opengl-simple */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 99CD90F522890AA3008F623A /* Build configuration list for PBXNativeTarget "learn-opengl" */;
+			buildConfigurationList = 99CD90F522890AA3008F623A /* Build configuration list for PBXNativeTarget "learn-opengl-simple" */;
 			buildPhases = (
 				99CD90EA22890AA3008F623A /* Sources */,
 				99CD90EB22890AA3008F623A /* Frameworks */,
@@ -705,9 +772,26 @@
 			);
 			dependencies = (
 			);
-			name = "learn-opengl";
+			name = "learn-opengl-simple";
 			productName = "learn-opengl";
-			productReference = 99CD90EE22890AA3008F623A /* learn-opengl */;
+			productReference = 99CD90EE22890AA3008F623A /* learn-opengl-simple */;
+			productType = "com.apple.product-type.tool";
+		};
+		99CD92672289109B008F623A /* learn-opengl-texture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99CD92722289109B008F623A /* Build configuration list for PBXNativeTarget "learn-opengl-texture" */;
+			buildPhases = (
+				99CD92682289109B008F623A /* Sources */,
+				99CD926B2289109B008F623A /* Frameworks */,
+				99CD92712289109B008F623A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "learn-opengl-texture";
+			productName = "learn-opengl";
+			productReference = 99CD92752289109B008F623A /* learn-opengl-texture */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -736,7 +820,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				99CD90ED22890AA3008F623A /* learn-opengl */,
+				99CD90ED22890AA3008F623A /* learn-opengl-simple */,
+				99CD92672289109B008F623A /* learn-opengl-texture */,
 			);
 		};
 /* End PBXProject section */
@@ -748,6 +833,15 @@
 			files = (
 				99CD90FB22890AC1008F623A /* hello_triangle.cpp in Sources */,
 				99CD925822890B2F008F623A /* glad.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99CD92682289109B008F623A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99CD9277228910F9008F623A /* texture.cpp in Sources */,
+				99CD926A2289109B008F623A /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +977,22 @@
 			};
 			name = Release;
 		};
+		99CD92732289109B008F623A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		99CD92742289109B008F623A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -895,11 +1005,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		99CD90F522890AA3008F623A /* Build configuration list for PBXNativeTarget "learn-opengl" */ = {
+		99CD90F522890AA3008F623A /* Build configuration list for PBXNativeTarget "learn-opengl-simple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				99CD90F622890AA3008F623A /* Debug */,
 				99CD90F722890AA3008F623A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		99CD92722289109B008F623A /* Build configuration list for PBXNativeTarget "learn-opengl-texture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99CD92732289109B008F623A /* Debug */,
+				99CD92742289109B008F623A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

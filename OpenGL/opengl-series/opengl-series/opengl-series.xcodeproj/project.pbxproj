@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		990CEB232285500D0094965E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 990CEB222285500D0094965E /* main.cpp */; };
-		990CEC47228551250094965E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990CEC46228551250094965E /* OpenGL.framework */; };
 		990CEC5D228553E40094965E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990CEC5C228553E40094965E /* Cocoa.framework */; };
 		990CEC6F228590860094965E /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 990CEC6D228590860094965E /* Shader.cpp */; };
-		990CEC8622869A370094965E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 990CEC7222868B4A0094965E /* libglfw3.a */; };
 		99CD90D02286A9F2008F623A /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD90CF2286A9F2008F623A /* Program.cpp */; };
 		99CD90D32286B28B008F623A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90D22286B28B008F623A /* CoreVideo.framework */; };
 		99CD90D42286B2B6008F623A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990CEC5E228553EA0094965E /* IOKit.framework */; };
-		99CD90D62286B33D008F623A /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 990CEB2F228550580094965E /* glew.c */; };
-		99CD90D72286B4C4008F623A /* platform_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 990CEC7322868B4A0094965E /* platform_osx.mm */; };
-		99CD90DA2286B628008F623A /* fragment-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = 99CD90D82286B628008F623A /* fragment-shader.txt */; };
-		99CD90DB2286B628008F623A /* vertex-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = 99CD90D92286B628008F623A /* vertex-shader.txt */; };
+		99CD90DC2288E70A008F623A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990CEC46228551250094965E /* OpenGL.framework */; };
+		99CD90DD2288E779008F623A /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 990CEC7222868B4A0094965E /* libglfw3.a */; };
+		99CD90DE2288E923008F623A /* platform_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 990CEC7322868B4A0094965E /* platform_osx.mm */; };
+		99CD90DF2288E9A5008F623A /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 990CEB2F228550580094965E /* glew.c */; };
+		99CD90E32288EBED008F623A /* fragment-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = 99CD90E12288EBED008F623A /* fragment-shader.txt */; };
+		99CD90E42288EBED008F623A /* vertex-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = 99CD90E22288EBED008F623A /* vertex-shader.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -303,6 +303,8 @@
 		99CD90D22286B28B008F623A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		99CD90D82286B628008F623A /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "fragment-shader.txt"; path = "DerivedData/opengl-series/Build/Products/Debug/fragment-shader.txt"; sourceTree = "<group>"; };
 		99CD90D92286B628008F623A /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "vertex-shader.txt"; path = "DerivedData/opengl-series/Build/Products/Debug/vertex-shader.txt"; sourceTree = "<group>"; };
+		99CD90E12288EBED008F623A /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fragment-shader.txt"; sourceTree = "<group>"; };
+		99CD90E22288EBED008F623A /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vertex-shader.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,8 +312,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				990CEC8622869A370094965E /* libglfw3.a in Frameworks */,
-				990CEC47228551250094965E /* OpenGL.framework in Frameworks */,
+				99CD90DD2288E779008F623A /* libglfw3.a in Frameworks */,
+				99CD90DC2288E70A008F623A /* OpenGL.framework in Frameworks */,
 				990CEC5D228553E40094965E /* Cocoa.framework in Frameworks */,
 				99CD90D32286B28B008F623A /* CoreVideo.framework in Frameworks */,
 				99CD90D42286B2B6008F623A /* IOKit.framework in Frameworks */,
@@ -362,6 +364,7 @@
 		990CEB1D2285500D0094965E /* source */ = {
 			isa = PBXGroup;
 			children = (
+				99CD90E02288EBED008F623A /* resources */,
 				99CD90D12286B1AA008F623A /* TBD */,
 				990CEB1E2285500D0094965E /* Shader.h */,
 				990CEC6D228590860094965E /* Shader.cpp */,
@@ -787,6 +790,16 @@
 			path = TBD;
 			sourceTree = "<group>";
 		};
+		99CD90E02288EBED008F623A /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				99CD90E12288EBED008F623A /* fragment-shader.txt */,
+				99CD90E22288EBED008F623A /* vertex-shader.txt */,
+			);
+			name = resources;
+			path = ../resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -843,8 +856,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99CD90DB2286B628008F623A /* vertex-shader.txt in Resources */,
-				99CD90DA2286B628008F623A /* fragment-shader.txt in Resources */,
+				99CD90E32288EBED008F623A /* fragment-shader.txt in Resources */,
+				99CD90E42288EBED008F623A /* vertex-shader.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,8 +868,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99CD90D72286B4C4008F623A /* platform_osx.mm in Sources */,
-				99CD90D62286B33D008F623A /* glew.c in Sources */,
+				99CD90DF2288E9A5008F623A /* glew.c in Sources */,
+				99CD90DE2288E923008F623A /* platform_osx.mm in Sources */,
 				99CD90D02286A9F2008F623A /* Program.cpp in Sources */,
 				990CEC6F228590860094965E /* Shader.cpp in Sources */,
 				990CEB232285500D0094965E /* main.cpp in Sources */,

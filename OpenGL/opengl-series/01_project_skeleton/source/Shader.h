@@ -11,15 +11,15 @@ namespace tdogl {
 		Shader(const std::string& shaderCode, GLenum shaderType);
 		GLuint object() const;
 		
-		Shader(const Shader& other);
-		Shader& operator =(const Shader& other);
-		~Shader();
+//        Shader(const Shader& other);
+//        Shader& operator =(const Shader& other);
+//        ~Shader();
 		
 	private:
-		GLuint _object;
-		unsigned* _refCount;
+        GLuint _object;
+        unsigned* _refCount;
 		
-		void _retain();
+        void _retain();
 		void _release();
 	};
 }

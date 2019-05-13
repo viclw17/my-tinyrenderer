@@ -90,7 +90,7 @@ void AppMain(){
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,2);
-//    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	gWindow = glfwCreateWindow((int)SCREEN_SIZE.x,(int)SCREEN_SIZE.y,"test",NULL,NULL);
 
@@ -107,8 +107,9 @@ void AppMain(){
     
     // initialise GLEW
     glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
-    if(glewInit() != GLEW_OK)
-        throw std::runtime_error("glewInit failed");
+    glewInit(); //victor, simple
+//    if(glewInit() != GLEW_OK)
+//        throw std::runtime_error("glewInit failed");
 
     LoadShaders();
     LoadTriangle();

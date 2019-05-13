@@ -99,16 +99,18 @@ int main()
      */
 	
 
-//Windows
-    Shader ourShader(
-        "./src/shader.vs",  // use / not \ from F:\Program Files\... !
-        "./src/shader.fs"
-    );
+
 //MacOS
 #ifdef __APPLE__
-    ourShader = Shader(
+    Shader ourShader = Shader(
      "Shaders/simple/shader.vs",  // now the files are located in DerivedData/...
      "Shaders/simple/shader.fs"
+     );
+#else
+//Windows
+    Shader ourShader = Shader(
+     "./src/shader.vs",  // use / not \ from F:\Program Files\... !
+     "./src/shader.fs"
      );
 #endif
     
@@ -131,11 +133,16 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     // position attribute
+    //  8 * sizeof(float) is stride
+    // (void*)0 is offset
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // color attribute
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
     glEnableVertexAttribArray(1);
+    // texture attribute
+//    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+//    glEnableVertexAttribArray(2);
 	
 	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object
     // so afterwards we can safely unbind

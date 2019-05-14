@@ -15,24 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="includes\glad\glad.c">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\hello_triangle.cpp">
+    <ClCompile Include="..\src\hello_triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\includes\glad\glad.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includes\learnopengl\shader_victor.h">
+    <ClInclude Include="..\includes\learnopengl\shader_victor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\shader.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\shader.vs">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

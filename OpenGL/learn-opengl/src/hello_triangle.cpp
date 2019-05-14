@@ -109,8 +109,8 @@ int main()
 #else
 //Windows
     Shader ourShader = Shader(
-     "./src/shader.vs",  // use / not \ from F:\Program Files\... !
-     "./src/shader.fs"
+     "./shaders/simple/shader.vs",  // use / not \ from F:\Program Files\... !
+     "./shaders/simple/shader.fs"
      );
 #endif
     

@@ -103,14 +103,14 @@ int main()
 //MacOS
 #ifdef __APPLE__
     Shader ourShader = Shader(
-     "Shaders/shader-base.vs",  // now the files are located in DerivedData/...
-     "Shaders/shader-base.fs"
+    "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-base.vs",
+    "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-base.fs"
      );
 #else
 //Windows
     Shader ourShader = Shader(
-     "./shaders/simple/shader.vs",  // use / not \ from F:\Program Files\... !
-     "./shaders/simple/shader.fs"
+    "../shaders/shader-texture.vs",
+    "../shaders/shader-texture.fs"
      );
 #endif
     

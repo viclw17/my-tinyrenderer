@@ -45,10 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		99040029228A9ACF00261A09 /* shader-base.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-base.fs"; sourceTree = "<group>"; };
-		9904002A228A9ACF00261A09 /* shader-base.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-base.vs"; sourceTree = "<group>"; };
-		9904002B228A9ACF00261A09 /* shader-texture.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-texture.vs"; sourceTree = "<group>"; };
-		9904002C228A9ACF00261A09 /* shader-texture.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-texture.fs"; sourceTree = "<group>"; };
+		9904002D228A9C8F00261A09 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = ../../shaders; sourceTree = "<group>"; };
 		99CD90EE22890AA3008F623A /* learn-opengl-simple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-simple"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CD90F922890AC1008F623A /* simple-base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-base.cpp"; path = "../../../src/simple-base.cpp"; sourceTree = "<group>"; };
 		99CD90FD22890AD4008F623A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -319,7 +316,6 @@
 		99CD925F22890D95008F623A /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
 		99CD92752289109B008F623A /* learn-opengl-texture */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-texture"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CD927F22891349008F623A /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
-		99CD928022891569008F623A /* container.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = container.jpg; sourceTree = "<group>"; };
 		99CD9291228A58E8008F623A /* simple-texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-texture.cpp"; path = "../../../src/simple-texture.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -354,10 +350,10 @@
 		99CD90E522890AA3008F623A = {
 			isa = PBXGroup;
 			children = (
+				9904002D228A9C8F00261A09 /* shaders */,
 				99CD910722890B2F008F623A /* includes */,
 				99CD90F022890AA3008F623A /* learn-opengl */,
 				99CD90EF22890AA3008F623A /* Products */,
-				99CD926422891037008F623A /* Shaders */,
 				99CD90FC22890AD4008F623A /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -724,27 +720,6 @@
 				99CD925322890B2F008F623A /* type_aligned.hpp */,
 			);
 			path = gtx;
-			sourceTree = "<group>";
-		};
-		99CD926422891037008F623A /* Shaders */ = {
-			isa = PBXGroup;
-			children = (
-				99040029228A9ACF00261A09 /* shader-base.fs */,
-				9904002A228A9ACF00261A09 /* shader-base.vs */,
-				9904002B228A9ACF00261A09 /* shader-texture.vs */,
-				9904002C228A9ACF00261A09 /* shader-texture.fs */,
-				99CD927C22891285008F623A /* texture */,
-			);
-			name = Shaders;
-			path = "DerivedData/learn-opengl/Build/Products/Debug/Shaders";
-			sourceTree = "<group>";
-		};
-		99CD927C22891285008F623A /* texture */ = {
-			isa = PBXGroup;
-			children = (
-				99CD928022891569008F623A /* container.jpg */,
-			);
-			path = texture;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

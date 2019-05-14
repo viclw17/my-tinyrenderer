@@ -49,14 +49,14 @@ int main() {
     //MacOS
     #ifdef __APPLE__
     Shader ourShader = Shader(
-        "Shaders/shader-texture.vs",  // now the files are located in DerivedData/...
-        "Shaders/shader-texture.fs"
+        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-texture.vs",
+        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-texture.fs"
     );
     #else
     //Windows
     Shader ourShader = Shader(
-        "./shaders/simple/shader.vs",  // use / not \ from F:\Program Files\... !
-        "./shaders/simple/shader.fs"
+        "../shaders/shader-texture.vs",
+        "../shaders/shader-texture.fs"
     );
     #endif
 
@@ -126,7 +126,7 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("Shaders/texture/container.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/texture/container.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         // create texture

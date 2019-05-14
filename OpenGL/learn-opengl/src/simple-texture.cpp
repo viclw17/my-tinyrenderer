@@ -114,9 +114,9 @@ int main() {
 
     // load and create a texture
     // -------------------------
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
+    unsigned int texture0;
+    glGenTextures(1, &texture0);
+    glBindTexture(GL_TEXTURE_2D, texture0);
     // all upcoming GL_TEXTURE_2D operations now have effect on this "texture" object
     // set texture wrapping parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // default wrapping method
@@ -126,7 +126,8 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/texture/container.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container.jpg",
+                                    &width, &height, &nrChannels, 0);
     if (data)
     {
         // create texture
@@ -138,6 +139,40 @@ int main() {
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
+    
+    unsigned int texture1;
+    glGenTextures(1, &texture1);
+    glBindTexture(GL_TEXTURE_2D, texture1);
+    // all upcoming GL_TEXTURE_2D operations now have effect on this "texture" object
+    // set texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // default wrapping method
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // load image
+    data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/awesomeface.png",
+                     &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        // create texture
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D); // generate mipmaps
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+    
+    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
+    // -------------------------------------------------------------------------------------------
+    ourShader.use(); // don't forget to activate/use the shader before setting uniforms!
+    // either set it manually like so:
+    glUniform1i(glGetUniformLocation(ourShader.ID, "texture0"), 0);
+    glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 1);
+    // or set it via the texture class
+//    ourShader.setInt("texture2", 1);
     
     // uncomment this call to draw in wireframe polygons.
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -160,8 +195,11 @@ int main() {
         float iTime = glGetUniformLocation(ourShader.ID, "iTime");
         glUniform1f(iTime, timeValue);
         
-        // bind Texture
-        glBindTexture(GL_TEXTURE_2D, texture);
+        // bind textures on corresponding texture units
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture0);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture1);
 
         // use shader program to render
         // ------

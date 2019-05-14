@@ -46,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		9904002D228A9C8F00261A09 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = ../../shaders; sourceTree = "<group>"; };
+		9904002E228B2F7100261A09 /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = textures; path = ../../textures; sourceTree = "<group>"; };
 		99CD90EE22890AA3008F623A /* learn-opengl-simple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-simple"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CD90F922890AC1008F623A /* simple-base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-base.cpp"; path = "../../../src/simple-base.cpp"; sourceTree = "<group>"; };
 		99CD90FD22890AD4008F623A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -350,6 +351,7 @@
 		99CD90E522890AA3008F623A = {
 			isa = PBXGroup;
 			children = (
+				9904002E228B2F7100261A09 /* textures */,
 				9904002D228A9C8F00261A09 /* shaders */,
 				99CD910722890B2F008F623A /* includes */,
 				99CD90F022890AA3008F623A /* learn-opengl */,

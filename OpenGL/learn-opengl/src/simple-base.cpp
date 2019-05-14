@@ -109,8 +109,8 @@ int main()
 #else
 //Windows
     Shader ourShader = Shader(
-    "../shaders/shader-texture.vs",
-    "../shaders/shader-texture.fs"
+    "../shaders/shader-base.vs",
+    "../shaders/shader-base.fs"
      );
 #endif
     

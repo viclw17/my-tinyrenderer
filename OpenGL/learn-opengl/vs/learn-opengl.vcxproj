@@ -144,7 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\includes\glad\glad.c" />
-    <ClCompile Include="..\src\hello_triangle.cpp" />
+    <ClCompile Include="..\src\simple-texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\includes\learnopengl\shader_victor.h" />

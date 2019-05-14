@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		99CD90FB22890AC1008F623A /* hello_triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD90F922890AC1008F623A /* hello_triangle.cpp */; };
+		99CD90FB22890AC1008F623A /* simple-base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD90F922890AC1008F623A /* simple-base.cpp */; };
 		99CD90FE22890AD4008F623A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
 		99CD910022890ADA008F623A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
 		99CD910222890AE0008F623A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910122890ADF008F623A /* CoreVideo.framework */; };
@@ -20,7 +20,7 @@
 		99CD926E2289109B008F623A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910122890ADF008F623A /* CoreVideo.framework */; };
 		99CD926F2289109B008F623A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
 		99CD92702289109B008F623A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
-		99CD9277228910F9008F623A /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD9276228910F9008F623A /* texture.cpp */; };
+		99CD9292228A5914008F623A /* simple-texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD9291228A58E8008F623A /* simple-texture.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,8 +45,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		99040029228A9ACF00261A09 /* shader-base.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-base.fs"; sourceTree = "<group>"; };
+		9904002A228A9ACF00261A09 /* shader-base.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-base.vs"; sourceTree = "<group>"; };
+		9904002B228A9ACF00261A09 /* shader-texture.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-texture.vs"; sourceTree = "<group>"; };
+		9904002C228A9ACF00261A09 /* shader-texture.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "shader-texture.fs"; sourceTree = "<group>"; };
 		99CD90EE22890AA3008F623A /* learn-opengl-simple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-simple"; sourceTree = BUILT_PRODUCTS_DIR; };
-		99CD90F922890AC1008F623A /* hello_triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hello_triangle.cpp; path = ../../../src/hello_triangle.cpp; sourceTree = "<group>"; };
+		99CD90F922890AC1008F623A /* simple-base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-base.cpp"; path = "../../../src/simple-base.cpp"; sourceTree = "<group>"; };
 		99CD90FD22890AD4008F623A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		99CD90FF22890ADA008F623A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		99CD910122890ADF008F623A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -314,14 +318,9 @@
 		99CD925B22890C69008F623A /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../lib/osx/libglfw3.a; sourceTree = "<group>"; };
 		99CD925F22890D95008F623A /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
 		99CD92752289109B008F623A /* learn-opengl-texture */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-texture"; sourceTree = BUILT_PRODUCTS_DIR; };
-		99CD9276228910F9008F623A /* texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
-		99CD927A22891281008F623A /* shader.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.fs; sourceTree = "<group>"; };
-		99CD927B22891281008F623A /* shader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vs; sourceTree = "<group>"; };
-		99CD927D228912A9008F623A /* shader.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader.vs; sourceTree = "<group>"; };
-		99CD927E228912C4008F623A /* shader.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shader.fs; sourceTree = "<group>"; };
 		99CD927F22891349008F623A /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		99CD928022891569008F623A /* container.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = container.jpg; sourceTree = "<group>"; };
-		99CD928D228919F3008F623A /* SOIL.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = SOIL.lib; path = ../../lib/SOIL.lib; sourceTree = "<group>"; };
+		99CD9291228A58E8008F623A /* simple-texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-texture.cpp"; path = "../../../src/simple-texture.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,8 +374,8 @@
 		99CD90F022890AA3008F623A /* learn-opengl */ = {
 			isa = PBXGroup;
 			children = (
-				99CD90F922890AC1008F623A /* hello_triangle.cpp */,
-				99CD9276228910F9008F623A /* texture.cpp */,
+				99CD90F922890AC1008F623A /* simple-base.cpp */,
+				99CD9291228A58E8008F623A /* simple-texture.cpp */,
 			);
 			path = "learn-opengl";
 			sourceTree = "<group>";
@@ -384,7 +383,6 @@
 		99CD90FC22890AD4008F623A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				99CD928D228919F3008F623A /* SOIL.lib */,
 				99CD925B22890C69008F623A /* libglfw3.a */,
 				99CD910322890AE5008F623A /* IOKit.framework */,
 				99CD910122890ADF008F623A /* CoreVideo.framework */,
@@ -731,28 +729,20 @@
 		99CD926422891037008F623A /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				99040029228A9ACF00261A09 /* shader-base.fs */,
+				9904002A228A9ACF00261A09 /* shader-base.vs */,
+				9904002B228A9ACF00261A09 /* shader-texture.vs */,
+				9904002C228A9ACF00261A09 /* shader-texture.fs */,
 				99CD927C22891285008F623A /* texture */,
-				99CD927922891258008F623A /* simple */,
 			);
 			name = Shaders;
 			path = "DerivedData/learn-opengl/Build/Products/Debug/Shaders";
-			sourceTree = "<group>";
-		};
-		99CD927922891258008F623A /* simple */ = {
-			isa = PBXGroup;
-			children = (
-				99CD927B22891281008F623A /* shader.vs */,
-				99CD927A22891281008F623A /* shader.fs */,
-			);
-			path = simple;
 			sourceTree = "<group>";
 		};
 		99CD927C22891285008F623A /* texture */ = {
 			isa = PBXGroup;
 			children = (
 				99CD928022891569008F623A /* container.jpg */,
-				99CD927D228912A9008F623A /* shader.vs */,
-				99CD927E228912C4008F623A /* shader.fs */,
 			);
 			path = texture;
 			sourceTree = "<group>";
@@ -831,7 +821,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99CD90FB22890AC1008F623A /* hello_triangle.cpp in Sources */,
+				99CD90FB22890AC1008F623A /* simple-base.cpp in Sources */,
 				99CD925822890B2F008F623A /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,7 +830,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99CD9277228910F9008F623A /* texture.cpp in Sources */,
+				99CD9292228A5914008F623A /* simple-texture.cpp in Sources */,
 				99CD926A2289109B008F623A /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

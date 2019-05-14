@@ -11,6 +11,6 @@ void main(){
     float sine = (sin(iTime*5)+3)*.25;
     vec4 color = vec4(ourColor * sine, 1.0f);
 //    FragColor = color;
-    FragColor = texture(texture1, TexCoord);
-//    FragColor = mix(texture(texture0, TexCoord), texture(texture1, TexCoord), .5);
+//    FragColor = texture(texture1, TexCoord);
+    FragColor = mix(texture(texture0, TexCoord), texture(texture1, TexCoord), .5);
 }

@@ -149,6 +149,12 @@
   <ItemGroup>
     <ClInclude Include="..\includes\learnopengl\shader_victor.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\shaders\shader-base.fs" />
+    <None Include="..\shaders\shader-base.vs" />
+    <None Include="..\shaders\shader-texture.fs" />
+    <None Include="..\shaders\shader-texture.vs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

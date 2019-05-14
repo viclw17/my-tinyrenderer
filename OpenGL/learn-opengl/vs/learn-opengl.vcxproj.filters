@@ -27,4 +27,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\shaders\shader-base.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\shaders\shader-base.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\shaders\shader-texture.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\shaders\shader-texture.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

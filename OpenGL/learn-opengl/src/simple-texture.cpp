@@ -126,8 +126,14 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container.jpg",
+	unsigned char* data;
+#ifdef __APPLE__
+	data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container.jpg",
                                     &width, &height, &nrChannels, 0);
+#else
+	data = stbi_load("../textures/container.jpg",
+		&width, &height, &nrChannels, 0);
+#endif
     if (data)
     {
         // create texture
@@ -151,8 +157,13 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image
+#ifdef __APPLE__
     data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/awesomeface.png",
                      &width, &height, &nrChannels, 0);
+#else
+	data = stbi_load("../textures/awesomeface.png",
+		&width, &height, &nrChannels, 0);
+#endif
     if (data)
     {
         // create texture

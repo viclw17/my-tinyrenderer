@@ -84,6 +84,7 @@
 		99040041228C791500261A09 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = test.cpp; path = ../../../src/test.cpp; sourceTree = "<group>"; };
 		99040052228D3FA500261A09 /* learn-opengl-lighting */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-lighting"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99040053228D3FDA00261A09 /* simple-lighting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-lighting.cpp"; path = "../../../src/simple-lighting.cpp"; sourceTree = "<group>"; };
+		99040055229071C300261A09 /* camera_victor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera_victor.h; sourceTree = "<group>"; };
 		99CD90EE22890AA3008F623A /* learn-opengl-simple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-simple"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CD90F922890AC1008F623A /* simple-base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-base.cpp"; path = "../../../src/simple-base.cpp"; sourceTree = "<group>"; };
 		99CD90FD22890AD4008F623A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -474,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				99CD914722890B2F008F623A /* shader_victor.h */,
+				99040055229071C300261A09 /* camera_victor.h */,
 			);
 			path = learnopengl;
 			sourceTree = "<group>";

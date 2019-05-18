@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		99040030228BB82100261A09 /* simple-cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9904002F228BB82000261A09 /* simple-cube.cpp */; };
 		99040034228BBB3B00261A09 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 99CD914A22890B2F008F623A /* glad.c */; };
 		99040036228BBB3B00261A09 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD925B22890C69008F623A /* libglfw3.a */; };
 		99040037228BBB3B00261A09 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910322890AE5008F623A /* IOKit.framework */; };
@@ -15,6 +14,13 @@
 		99040039228BBB3B00261A09 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
 		9904003A228BBB3B00261A09 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
 		99040040228BBB5400261A09 /* simple-cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9904002F228BB82000261A09 /* simple-cube.cpp */; };
+		99040047228D3FA500261A09 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 99CD914A22890B2F008F623A /* glad.c */; };
+		99040049228D3FA500261A09 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD925B22890C69008F623A /* libglfw3.a */; };
+		9904004A228D3FA500261A09 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910322890AE5008F623A /* IOKit.framework */; };
+		9904004B228D3FA500261A09 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910122890ADF008F623A /* CoreVideo.framework */; };
+		9904004C228D3FA500261A09 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
+		9904004D228D3FA500261A09 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
+		99040054228D3FDA00261A09 /* simple-lighting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99040053228D3FDA00261A09 /* simple-lighting.cpp */; };
 		99CD90FB22890AC1008F623A /* simple-base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD90F922890AC1008F623A /* simple-base.cpp */; };
 		99CD90FE22890AD4008F623A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
 		99CD910022890ADA008F623A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
@@ -33,6 +39,15 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9904003B228BBB3B00261A09 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		9904004E228D3FA500261A09 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -67,6 +82,8 @@
 		9904002F228BB82000261A09 /* simple-cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-cube.cpp"; path = "../../../src/simple-cube.cpp"; sourceTree = "<group>"; };
 		9904003F228BBB3B00261A09 /* learn-opengl-cube */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-cube"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99040041228C791500261A09 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = test.cpp; path = ../../../src/test.cpp; sourceTree = "<group>"; };
+		99040052228D3FA500261A09 /* learn-opengl-lighting */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-lighting"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99040053228D3FDA00261A09 /* simple-lighting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-lighting.cpp"; path = "../../../src/simple-lighting.cpp"; sourceTree = "<group>"; };
 		99CD90EE22890AA3008F623A /* learn-opengl-simple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-simple"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CD90F922890AC1008F623A /* simple-base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-base.cpp"; path = "../../../src/simple-base.cpp"; sourceTree = "<group>"; };
 		99CD90FD22890AD4008F623A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -353,6 +370,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99040048228D3FA500261A09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99040049228D3FA500261A09 /* libglfw3.a in Frameworks */,
+				9904004A228D3FA500261A09 /* IOKit.framework in Frameworks */,
+				9904004B228D3FA500261A09 /* CoreVideo.framework in Frameworks */,
+				9904004C228D3FA500261A09 /* OpenGL.framework in Frameworks */,
+				9904004D228D3FA500261A09 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99CD90EB22890AA3008F623A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -398,6 +427,7 @@
 				99CD90EE22890AA3008F623A /* learn-opengl-simple */,
 				99CD92752289109B008F623A /* learn-opengl-texture */,
 				9904003F228BBB3B00261A09 /* learn-opengl-cube */,
+				99040052228D3FA500261A09 /* learn-opengl-lighting */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -405,6 +435,7 @@
 		99CD90F022890AA3008F623A /* learn-opengl */ = {
 			isa = PBXGroup;
 			children = (
+				99040053228D3FDA00261A09 /* simple-lighting.cpp */,
 				9904002F228BB82000261A09 /* simple-cube.cpp */,
 				99CD90F922890AC1008F623A /* simple-base.cpp */,
 				99CD9291228A58E8008F623A /* simple-texture.cpp */,
@@ -779,6 +810,23 @@
 			productReference = 9904003F228BBB3B00261A09 /* learn-opengl-cube */;
 			productType = "com.apple.product-type.tool";
 		};
+		99040044228D3FA500261A09 /* learn-opengl-lighting */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9904004F228D3FA500261A09 /* Build configuration list for PBXNativeTarget "learn-opengl-lighting" */;
+			buildPhases = (
+				99040045228D3FA500261A09 /* Sources */,
+				99040048228D3FA500261A09 /* Frameworks */,
+				9904004E228D3FA500261A09 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "learn-opengl-lighting";
+			productName = "learn-opengl";
+			productReference = 99040052228D3FA500261A09 /* learn-opengl-lighting */;
+			productType = "com.apple.product-type.tool";
+		};
 		99CD90ED22890AA3008F623A /* learn-opengl-simple */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99CD90F522890AA3008F623A /* Build configuration list for PBXNativeTarget "learn-opengl-simple" */;
@@ -842,6 +890,7 @@
 				99CD90ED22890AA3008F623A /* learn-opengl-simple */,
 				99CD92672289109B008F623A /* learn-opengl-texture */,
 				99040031228BBB3B00261A09 /* learn-opengl-cube */,
+				99040044228D3FA500261A09 /* learn-opengl-lighting */,
 			);
 		};
 /* End PBXProject section */
@@ -856,13 +905,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99040045228D3FA500261A09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99040054228D3FDA00261A09 /* simple-lighting.cpp in Sources */,
+				99040047228D3FA500261A09 /* glad.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99CD90EA22890AA3008F623A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				99CD90FB22890AC1008F623A /* simple-base.cpp in Sources */,
 				99CD925822890B2F008F623A /* glad.c in Sources */,
-				99040030228BB82100261A09 /* simple-cube.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -887,6 +944,22 @@
 			name = Debug;
 		};
 		9904003E228BBB3B00261A09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		99040050228D3FA500261A09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		99040051228D3FA500261A09 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -1047,6 +1120,15 @@
 			buildConfigurations = (
 				9904003D228BBB3B00261A09 /* Debug */,
 				9904003E228BBB3B00261A09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9904004F228D3FA500261A09 /* Build configuration list for PBXNativeTarget "learn-opengl-lighting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99040050228D3FA500261A09 /* Debug */,
+				99040051228D3FA500261A09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

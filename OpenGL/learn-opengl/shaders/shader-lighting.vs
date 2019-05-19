@@ -6,7 +6,7 @@ layout (location = 2) in vec3 aTexCoord;
 // pass to frag shader
 out vec3 FragPos;
 out vec3 Normal;
-out vec2 TexCoord;
+out vec2 TexCoords;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -20,5 +20,5 @@ void main()
     // pass to frag shader
     FragPos = vec3(model * vec4(aPos,1.0)); // from local space to world space
     Normal = aNormal;
-    TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+    TexCoords = vec2(aTexCoord.x, aTexCoord.y);
 }

@@ -191,15 +191,15 @@ int main() {
     int width, height, nrChannels;
 	unsigned char* data;
 #ifdef __APPLE__
-	data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/parchment.jpg",
+	data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container2_diffuse.png",
                      &width, &height, &nrChannels, 0);
 #else
-	data = stbi_load("../textures/parchment.jpg",
+	data = stbi_load("",
                      &width, &height, &nrChannels, 0);
 #endif
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data); // create texture
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); // create texture
         glGenerateMipmap(GL_TEXTURE_2D); // generate mipmaps
     }
     else
@@ -223,10 +223,10 @@ int main() {
 	stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // load image
 #ifdef __APPLE__
-    data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/bunny.png",
+    data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container2_specular.png",
                      &width, &height, &nrChannels, 0);
 #else
-	data = stbi_load("../textures/bunny.png",
+	data = stbi_load("",
                      &width, &height, &nrChannels, 0);
 #endif
     if (data)
@@ -248,8 +248,8 @@ int main() {
 //    unsigned int texture1Loc = glGetUniformLocation(lightingShader.ID, "texture1");
 //    glUniform1i(texture0Loc, 0);
 //    glUniform1i(texture1Loc, 1);
-    lightingShader.setInt("texture0", 0);
-    lightingShader.setInt("texture1", 1);
+    lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.specular", 1);
     
 
     
@@ -268,7 +268,7 @@ int main() {
         glClearColor(.2,.2,.2, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        // bind textures on corresponding texture units
+        // bind textures to texture units
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture0);
         glActiveTexture(GL_TEXTURE1);
@@ -277,11 +277,26 @@ int main() {
         lightingShader.use();
 //        float iTime = glGetUniformLocation(lightingShader.ID, "iTime");
 //        glUniform1f(iTime, glfwGetTime());
-        lightingShader.setFloat("iTime",      glfwGetTime());
-        lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        lightingShader.setVec3("lightColor",  1.0f, 1.0f, 1.0f);
-        lightingShader.setVec3("lightPos",    lightPos);
-        lightingShader.setVec3("viewPos",     camera.Position);
+        lightingShader.setFloat("iTime",         glfwGetTime());
+        lightingShader.setVec3("viewPos",        camera.Position);
+        lightingShader.setVec3("light.position", lightPos);
+        
+        // light properties
+        glm::vec3 lightColor;
+//        lightColor.x = sin(glfwGetTime() * 2.0f);
+//        lightColor.y = sin(glfwGetTime() * 0.7f);
+//        lightColor.z = sin(glfwGetTime() * 1.3f);
+        lightColor = glm::vec3(1);
+        glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f);
+        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+        lightingShader.setVec3("light.ambient", ambientColor);
+        lightingShader.setVec3("light.diffuse", diffuseColor);
+        lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        // material properties
+        lightingShader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
+        lightingShader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
+        lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+        lightingShader.setFloat("material.shininess", 32.0f);
         
         // MVP
         // view/projection transformations

@@ -19,12 +19,12 @@ void scroll_callback           (GLFWwindow* window, double xoffset, double yoffs
 void framebuffer_size_callback (GLFWwindow* window, int    width,   int    height);
 
 // settings
-const unsigned int SCR_WIDTH  = 600;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH  = 800;
+const unsigned int SCR_HEIGHT = 800;
 
 // camera
 //Camera camera = Camera(); // by default camera position at 0,0,0
-glm::vec3 cameraPos = glm::vec3(0,0,3);
+glm::vec3 cameraPos = glm::vec3(0,0,5);
 Camera camera(cameraPos);
 bool firstMouse = true;
 float lastX =  SCR_WIDTH / 2.0; // center of screen
@@ -145,7 +145,19 @@ int main() {
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
     };
 
-
+    // world space positions of our cubes
+    glm::vec3 cubePositions[] = {
+        glm::vec3( 0.0f,  0.0f,  0.0f),
+        glm::vec3( 2.0f,  5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3( 2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f,  3.0f, -7.5f),
+        glm::vec3( 1.3f, -2.0f, -2.5f),
+        glm::vec3( 1.5f,  2.0f, -2.5f),
+        glm::vec3( 1.5f,  0.2f, -1.5f),
+        glm::vec3(-1.3f,  1.0f, -1.5f)
+    };
     
     unsigned int VBO;
     glGenBuffers(1, &VBO);
@@ -248,7 +260,7 @@ int main() {
 //    unsigned int texture1Loc = glGetUniformLocation(lightingShader.ID, "texture1");
 //    glUniform1i(texture0Loc, 0);
 //    glUniform1i(texture1Loc, 1);
-    lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.diffuse", 0); // lightmaps
     lightingShader.setInt("material.specular", 1);
     
 
@@ -280,6 +292,10 @@ int main() {
         lightingShader.setFloat("iTime",         glfwGetTime());
         lightingShader.setVec3("viewPos",        camera.Position);
         lightingShader.setVec3("light.position", lightPos);
+//        lightingShader.setVec3("light.direction", -0.2, -1.0, -0.3); //  light.direction point from light source
+        lightingShader.setFloat("light.constant", 1.0f);
+        lightingShader.setFloat("light.linear",    0.045f);//0.09
+        lightingShader.setFloat("light.quadratic", 0.0075f);//0.032
         
         // light properties
         glm::vec3 lightColor;
@@ -287,8 +303,8 @@ int main() {
 //        lightColor.y = sin(glfwGetTime() * 0.7f);
 //        lightColor.z = sin(glfwGetTime() * 1.3f);
         lightColor = glm::vec3(1);
-        glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f);
-        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+        glm::vec3 diffuseColor = lightColor ;//  * glm::vec3(0.5f);
+        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.5f);
         lightingShader.setVec3("light.ambient", ambientColor);
         lightingShader.setVec3("light.diffuse", diffuseColor);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
@@ -306,21 +322,29 @@ int main() {
         lightingShader.setMat4("view",       view);
         // world transformation
         glm::mat4 model;
-        lightingShader.setMat4("model",      model);
-        
+        lightingShader.setMat4("model", model);
         // render the cube
         glBindVertexArray(cubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+//        glDrawArrays(GL_TRIANGLES, 0, 36);
+        for(unsigned int i = 0; i<10; i++){
+            glm::mat4 model;
+            model = glm::translate(model, cubePositions[i]);
+            float angle = 20 * i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1,0.3,0.5));
+            lightingShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES,0,36);
+        }
         
+        // LIGHT SOURCE
         lampShader.use();
         lampShader.setFloat("iTime",     glfwGetTime());
         lampShader.setMat4("projection", projection);
         lampShader.setMat4("view",       view);
         model = glm::mat4();
+        lightPos = lightPos + glm::vec3(0,0.05*sin(5*glfwGetTime()),0);
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f));
         lampShader.setMat4("model",      model);
-        
         // render the lamp cube
         glBindVertexArray(lampVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);

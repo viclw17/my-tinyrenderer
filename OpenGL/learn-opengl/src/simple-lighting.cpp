@@ -277,7 +277,8 @@ int main() {
         processInput(window);
 
         // clear
-        glClearColor(.2,.2,.2, 1);
+        glClearColor(0,0,0, 1);
+        //glClearColor(.2,.2,.2, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         // bind textures to texture units
@@ -291,8 +292,18 @@ int main() {
 //        glUniform1f(iTime, glfwGetTime());
         lightingShader.setFloat("iTime",         glfwGetTime());
         lightingShader.setVec3("viewPos",        camera.Position);
-        lightingShader.setVec3("light.position", lightPos);
-//        lightingShader.setVec3("light.direction", -0.2, -1.0, -0.3); //  light.direction point from light source
+//        lightingShader.setVec3("light.position", lightPos);
+        
+        // directional light
+        lightingShader.setVec3("light.direction", -0.2, -1.0, -0.3); // light.direction point from light source
+        
+        // spot light
+        lightingShader.setVec3("light.position", camera.Position); // for spot light
+        lightingShader.setVec3("light.direction", camera.Front); // for spot light
+        lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        lightingShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+        
+        // point light
         lightingShader.setFloat("light.constant", 1.0f);
         lightingShader.setFloat("light.linear",    0.045f);//0.09
         lightingShader.setFloat("light.quadratic", 0.0075f);//0.032
@@ -312,7 +323,7 @@ int main() {
         lightingShader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-        lightingShader.setFloat("material.shininess", 32.0f);
+        lightingShader.setFloat("material.shininess", 32.0f);//32
         
         // MVP
         // view/projection transformations
@@ -336,18 +347,18 @@ int main() {
         }
         
         // LIGHT SOURCE
-        lampShader.use();
-        lampShader.setFloat("iTime",     glfwGetTime());
-        lampShader.setMat4("projection", projection);
-        lampShader.setMat4("view",       view);
-        model = glm::mat4();
-        lightPos = lightPos + glm::vec3(0,0.05*sin(5*glfwGetTime()),0);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f));
-        lampShader.setMat4("model",      model);
-        // render the lamp cube
-        glBindVertexArray(lampVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+//        lampShader.use();
+//        lampShader.setFloat("iTime",     glfwGetTime());
+//        lampShader.setMat4("projection", projection);
+//        lampShader.setMat4("view",       view);
+//        model = glm::mat4();
+////        lightPos = lightPos + glm::vec3(0,0.05*sin(5*glfwGetTime()),0);
+//        model = glm::translate(model, lightPos);
+//        model = glm::scale(model, glm::vec3(0.2f));
+//        lampShader.setMat4("model",      model);
+//        // render the lamp cube
+//        glBindVertexArray(lampVAO);
+//        glDrawArrays(GL_TRIANGLES, 0, 36);
         
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         glfwSwapBuffers(window);

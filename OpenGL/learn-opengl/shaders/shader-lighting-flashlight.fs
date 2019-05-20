@@ -34,7 +34,6 @@ struct Light {
     vec3 position; // for point light, spot light; no longer necessery for directional light
     vec3 direction; // for directional light, spot light
     float cutOff;
-    float outerCutOff;
     
     vec3 ambient;
     vec3 diffuse;
@@ -59,38 +58,42 @@ void main(){
     // if use directional light
     //vec3 lightDir = normalize(-light.direction); // light.direction is pointing from light source
     
-    // AMBIENT
-    //float ambientStrength = 0.1;
-    //vec3 ambient = light.ambient * material.ambient;
-    vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
-    
-    // DIFFUSE
-    float diff = max(dot(norm, lightDir), 0);
-    vec3 diffuse = light.diffuse * (diff * vec3(texture(material.diffuse, TexCoords)));
-    
-    // SPECULAR
-    //float specularStrength = 0.5;
-    vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm); // reflect expects the first vector to point from the light source towards the fragment’s position
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = light.specular * (spec * vec3(texture(material.specular, TexCoords)));
-    
-    // spotlight (soft edges)
+    // check if lighting is inside the spotlight cone
     float theta = dot(lightDir, normalize(-light.direction));
-    float epsilon = (light.cutOff - light.outerCutOff);
-    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
-    diffuse  *= intensity;
-    specular *= intensity;
     
-    // point light
-    float distance    = length(light.position - FragPos);
-    float attenuation = 1.0 / (light.constant + light.linear * distance +
-                               light.quadratic * (distance * distance));
-    ambient *= attenuation;
-    diffuse *= attenuation;
-    specular *= attenuation;
-    
-    vec3 result = ambient + diffuse + specular;
+    if(theta > light.cutOff) // remember that we're working with angles as cosines instead of degrees so a '>' is used.
+    {
+        // AMBIENT
+        //float ambientStrength = 0.1;
+        //vec3 ambient = light.ambient * material.ambient;
+        vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
+        
+        // DIFFUSE
+        float diff = max(dot(norm, lightDir), 0);
+        vec3 diffuse = light.diffuse * (diff * vec3(texture(material.diffuse, TexCoords)));
+        
+        // SPECULAR
+        //float specularStrength = 0.5;
+        vec3 viewDir = normalize(viewPos - FragPos);
+        vec3 reflectDir = reflect(-lightDir, norm); // reflect expects the first vector to point from the light source towards the fragment’s position
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+        vec3 specular = light.specular * (spec * vec3(texture(material.specular, TexCoords)));
+        
+        // if using point light
+        float distance    = length(light.position - FragPos);
+        float attenuation = 1.0 / (light.constant + light.linear * distance +
+                                   light.quadratic * (distance * distance));
+//        ambient *= attenuation;
+        diffuse *= attenuation;
+        specular *= attenuation;
+        
+        vec3 result = ambient + diffuse + specular;
 
-    FragColor = vec4(result, 1.0);
+        FragColor = vec4(result, 1.0);
+    }
+    else
+    {
+        // else, use ambient light so scene isn't completely dark outside the spotlight.
+        FragColor = vec4(light.ambient * texture(material.diffuse, TexCoords).rgb, 1.0);
+    }
 }

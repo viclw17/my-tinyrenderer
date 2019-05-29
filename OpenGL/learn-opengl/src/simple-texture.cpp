@@ -59,8 +59,8 @@ int main() {
     #else
     //Windows
     Shader ourShader = Shader(
-        "../shaders/shader-texture.vs",
-        "../shaders/shader-texture.fs"
+        "../../../shaders/shader-texture.vs",
+        "../../../shaders/shader-texture.fs"
     );
     #endif
 
@@ -140,7 +140,7 @@ int main() {
 	data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container.jpg",
                                     &width, &height, &nrChannels, 0);
 #else
-	data = stbi_load("../textures/container.jpg",
+	data = stbi_load("../../../textures/container.jpg",
 		&width, &height, &nrChannels, 0);
 #endif
     if (data)
@@ -174,7 +174,7 @@ int main() {
     data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/awesomeface.png",
                      &width, &height, &nrChannels, 0);
 #else
-	data = stbi_load("../textures/awesomeface.png",
+	data = stbi_load("../../../textures/awesomeface.png",
 		&width, &height, &nrChannels, 0);
 #endif
     if (data)

@@ -89,12 +89,12 @@ int main() {
     #else
     // Windows
     Shader lightingShader = Shader(
-        "../shaders/shader-lighting.vs",
-        "../shaders/shader-lighting.fs"
+        "../../../shaders/shader-lighting.vs",
+        "../../../shaders/shader-lighting.fs"
     );
     Shader lampShader = Shader(
-       "../shaders/light.vs",
-       "../shaders/light.fs"
+       "../../../shaders/light.vs",
+       "../../../shaders/light.fs"
     );
     #endif
     
@@ -206,7 +206,7 @@ int main() {
 	data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container2_diffuse.png",
                      &width, &height, &nrChannels, 0);
 #else
-	data = stbi_load("",
+	data = stbi_load("../../../textures/container2_diffuse.png",
                      &width, &height, &nrChannels, 0);
 #endif
     if (data)
@@ -238,7 +238,7 @@ int main() {
     data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/container2_specular.png",
                      &width, &height, &nrChannels, 0);
 #else
-	data = stbi_load("",
+	data = stbi_load("../../../textures/container2_specular.png",
                      &width, &height, &nrChannels, 0);
 #endif
     if (data)

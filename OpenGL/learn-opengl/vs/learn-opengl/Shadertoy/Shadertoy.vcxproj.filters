@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\simple-texture.cpp">
+    <ClCompile Include="..\..\..\src\shadertoy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\includes\glad\glad.c">
@@ -23,14 +23,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\shaders\shader-texture.vs">
+    <None Include="..\..\..\shaders\shadertoy.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\..\shaders\shader-texture.fs">
+    <None Include="..\..\..\shaders\shadertoy.vs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\..\shaders\shadertoy\raytracing.fs">
-      <Filter>Resource Files</Filter>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\includes\learnopengl\shader_victor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

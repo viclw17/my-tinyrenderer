@@ -29,6 +29,12 @@
     <None Include="..\..\..\shaders\shadertoy.vs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\..\shaders\shadertoy\raytracing.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\fluid.fs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\includes\learnopengl\shader_victor.h">

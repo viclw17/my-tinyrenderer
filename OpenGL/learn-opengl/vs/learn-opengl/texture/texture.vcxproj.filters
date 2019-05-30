@@ -29,8 +29,5 @@
     <None Include="..\..\..\shaders\shader-texture.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\..\shaders\shadertoy\raytracing.fs">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

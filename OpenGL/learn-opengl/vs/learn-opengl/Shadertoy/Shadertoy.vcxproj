@@ -139,6 +139,8 @@
   <ItemGroup>
     <None Include="..\..\..\shaders\shadertoy.fs" />
     <None Include="..\..\..\shaders\shadertoy.vs" />
+    <None Include="..\..\..\shaders\shadertoy\fluid.fs" />
+    <None Include="..\..\..\shaders\shadertoy\raytracing.fs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\includes\learnopengl\shader_victor.h" />

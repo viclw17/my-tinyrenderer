@@ -135,6 +135,11 @@
     <ClCompile Include="..\..\..\includes\glad\glad.c" />
     <ClCompile Include="..\..\..\src\simple-lighting.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\shaders\shader-lighting-flashlight.fs" />
+    <None Include="..\..\..\shaders\shader-lighting.fs" />
+    <None Include="..\..\..\shaders\shader-lighting.vs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

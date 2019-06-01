@@ -15,8 +15,8 @@
 void processInput(GLFWwindow *window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-const unsigned int SCR_WIDTH  = 400;
-const unsigned int SCR_HEIGHT = 300;
+const unsigned int SCR_WIDTH  = 800;
+const unsigned int SCR_HEIGHT = 600;
 
 int main() {
     // glfw: initialize and configure
@@ -58,7 +58,8 @@ int main() {
     //Windows
     Shader ourShader = Shader(
         "../../../shaders/shadertoy/shadertoy.vs",
-        "../../../shaders/shadertoy/raytracing.fs"
+        //"../../../shaders/shadertoy/pbr.fs"
+		"simple-pbr.fs"
     );
     #endif
 
@@ -152,6 +153,7 @@ int main() {
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
+
     
     
     // get and set unifroms, here only do once

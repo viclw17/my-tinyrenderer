@@ -22,4 +22,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\shaders\shader-lighting.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shader-lighting.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shader-lighting-flashlight.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

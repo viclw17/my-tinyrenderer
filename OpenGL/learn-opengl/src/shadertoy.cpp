@@ -52,7 +52,7 @@ int main() {
     #ifdef __APPLE__
     Shader ourShader = Shader(
         "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/shadertoy.vs",
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/shadertoy.fs"
+        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/pbr.fs"
     );
     #else
     //Windows
@@ -73,14 +73,6 @@ int main() {
         -1.0f, -1.0f,  0.0f,   0.0f,		0.0f,		// BL
         -1.0f,  1.0f,  0.0f,   0.0f,		yFragAmount // UL
     };
-
-	/*float vertices[] = {
-		// positions       
-		1.0f,  1.0f,  0.0f,
-		1.0f, -1.0f,  0.0f,
-	   -1.0f, -1.0f,  0.0f,
-	   -1.0f,  1.0f,  0.0f
-	};*/
     
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -161,9 +153,9 @@ int main() {
     ourShader.use(); // don't forget to activate/use the shader before setting uniforms!
     unsigned int texture0Loc = glGetUniformLocation(ourShader.ID, "iChannel0");
     glUniform1i(texture0Loc, 0); // set it manually
+    //ourShader.setInt("iChannel0", 0); // glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 
 	glm::vec3 iResolution(xFragAmount, yFragAmount, 1);
-	unsigned int iRes = glGetUniformLocation(ourShader.ID, "iResolution");
 	ourShader.setVec3("iResolution", iResolution);
     
     // uncomment this call to draw in wireframe polygons.

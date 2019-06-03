@@ -1,6 +1,6 @@
 #pragma once
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef SHADER_VICTOR_H
+#define SHADER_VICTOR_H
 
 #include <glad/glad.h> // not glew any more
 

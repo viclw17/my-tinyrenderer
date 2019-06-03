@@ -292,33 +292,31 @@ int main() {
 //        glUniform1f(iTime, glfwGetTime());
         lightingShader.setFloat("iTime",         glfwGetTime());
         lightingShader.setVec3("viewPos",        camera.Position);
-//        lightingShader.setVec3("light.position", lightPos);
+        lightingShader.setVec3("light.position", lightPos);
         
         // directional light
         lightingShader.setVec3("light.direction", -0.2, -1.0, -0.3); // light.direction point from light source
         
         // spot light
-        lightingShader.setVec3("light.position", camera.Position); // for spot light
-        lightingShader.setVec3("light.direction", camera.Front); // for spot light
+//        lightingShader.setVec3("light.position", camera.Position); // for camera based spot light
+        lightingShader.setVec3("light.direction", glm::vec3(-.5,0,-1)); // for spot light
         lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
         lightingShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         
         // point light
         lightingShader.setFloat("light.constant", 1.0f);
-        lightingShader.setFloat("light.linear",    0.045f);//0.09
-        lightingShader.setFloat("light.quadratic", 0.0075f);//0.032
+        lightingShader.setFloat("light.linear",    0.09f);//0.09
+        lightingShader.setFloat("light.quadratic", 0.032f);//0.032
         
         // light properties
         glm::vec3 lightColor;
-//        lightColor.x = sin(glfwGetTime() * 2.0f);
-//        lightColor.y = sin(glfwGetTime() * 0.7f);
-//        lightColor.z = sin(glfwGetTime() * 1.3f);
         lightColor = glm::vec3(1);
         glm::vec3 diffuseColor = lightColor ;//  * glm::vec3(0.5f);
         glm::vec3 ambientColor = diffuseColor * glm::vec3(0.5f);
         lightingShader.setVec3("light.ambient", ambientColor);
         lightingShader.setVec3("light.diffuse", diffuseColor);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        
         // material properties
         lightingShader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
@@ -347,18 +345,18 @@ int main() {
         }
         
         // LIGHT SOURCE
-//        lampShader.use();
-//        lampShader.setFloat("iTime",     glfwGetTime());
-//        lampShader.setMat4("projection", projection);
-//        lampShader.setMat4("view",       view);
-//        model = glm::mat4();
-////        lightPos = lightPos + glm::vec3(0,0.05*sin(5*glfwGetTime()),0);
-//        model = glm::translate(model, lightPos);
-//        model = glm::scale(model, glm::vec3(0.2f));
-//        lampShader.setMat4("model",      model);
-//        // render the lamp cube
-//        glBindVertexArray(lampVAO);
-//        glDrawArrays(GL_TRIANGLES, 0, 36);
+        lampShader.use();
+        lampShader.setFloat("iTime",     glfwGetTime());
+        lampShader.setMat4("projection", projection);
+        lampShader.setMat4("view",       view);
+        model = glm::mat4();
+        lightPos = lightPos + glm::vec3(0,0.01*sin(5*glfwGetTime()),0);
+        model = glm::translate(model, lightPos);
+        model = glm::scale(model, glm::vec3(0.2f));
+        lampShader.setMat4("model",      model);
+        // render the lamp cube
+        glBindVertexArray(lampVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         glfwSwapBuffers(window);

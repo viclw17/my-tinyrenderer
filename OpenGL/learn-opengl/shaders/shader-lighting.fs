@@ -1,4 +1,5 @@
 #version 330 core
+#define LIGHT_TYPE 1 // 0:directional; 1:point; 2:spot
 /*
 Vertex Shader的输出在Clip Space，那Fragment Shader的输入在什么空间？
 不是NDC，而是屏幕空间Screen Space。我们前面说到Vertex Shader的输出在Clip Space，接着GPU会做透视除法变到NDC。
@@ -54,10 +55,11 @@ void main(){
     
     // prepare for lighting calculation
     vec3 norm = normalize(Normal);
-    // if use simple/point light
+#if LIGHT_TYPE == 0
+    vec3 lightDir = normalize(-light.direction); // light.direction is pointing from light source
+#else
     vec3 lightDir = normalize(light.position - FragPos); // this direction is pointing towards light source
-    // if use directional light
-    //vec3 lightDir = normalize(-light.direction); // light.direction is pointing from light source
+#endif
     
     // AMBIENT
     //float ambientStrength = 0.1;
@@ -71,24 +73,29 @@ void main(){
     // SPECULAR
     //float specularStrength = 0.5;
     vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm); // reflect expects the first vector to point from the light source towards the fragment’s position
+    vec3 reflectDir = reflect(-lightDir, norm);
+    // "reflect" expects the first vector to point from the light source towards the fragment’s position
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = light.specular * (spec * vec3(texture(material.specular, TexCoords)));
-    
-    // spotlight (soft edges)
-    float theta = dot(lightDir, normalize(-light.direction));
-    float epsilon = (light.cutOff - light.outerCutOff);
-    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
-    diffuse  *= intensity;
-    specular *= intensity;
-    
-    // point light
+
+#if LIGHT_TYPE == 1
+    // point light, not directional
     float distance    = length(light.position - FragPos);
     float attenuation = 1.0 / (light.constant + light.linear * distance +
                                light.quadratic * (distance * distance));
     ambient *= attenuation;
     diffuse *= attenuation;
     specular *= attenuation;
+#endif
+    
+#if LIGHT_TYPE == 2
+    // spotlight (soft edges), directional!
+    float theta = dot(lightDir, normalize(-light.direction));
+    float epsilon = (light.cutOff - light.outerCutOff);
+    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+    diffuse  *= intensity;
+    specular *= intensity;
+#endif
     
     vec3 result = ambient + diffuse + specular;
 

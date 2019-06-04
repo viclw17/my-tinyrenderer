@@ -35,7 +35,7 @@
     <None Include="..\..\..\shaders\shadertoy\pbr.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="simple-pbr.fs">
+    <None Include="..\..\..\shaders\shadertoy\simple-pbr.fs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

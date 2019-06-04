@@ -31,7 +31,7 @@ uniform float     iSampleRate;           // sound sample rate (i.e., 44100)
 #define USE_IBL 				0
 #define COLORIZE 				0
 
-#define HEIGHT_CORRELATED_SMITH true
+#define HEIGHT_CORRELATED_SMITH false
 #define FRESNEL_SHLICK			true
 
 #define DIFFUSE_SCALE 			1.0

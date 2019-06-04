@@ -58,8 +58,7 @@ int main() {
     //Windows
     Shader ourShader = Shader(
         "../../../shaders/shadertoy/shadertoy.vs",
-        //"../../../shaders/shadertoy/pbr.fs"
-		"simple-pbr.fs"
+        "../../../shaders/shadertoy/pbr.fs"
     );
     #endif
 

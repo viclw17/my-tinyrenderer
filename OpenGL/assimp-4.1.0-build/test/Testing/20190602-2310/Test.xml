@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20190602-2310-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.14.3"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Mac OS X"
+	Hostname="Victors-Mac-Pro.local"
+	OSRelease="10.14.5"
+	OSVersion="18F132"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="70"
+	ProcessorCacheSize="32768"
+	NumberOfLogicalCPU="8"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="2048"
+	TotalPhysicalMemory="16384"
+	LogicalProcessorsPerPhysical="8"
+	ProcessorClockFrequency="2500"
+	>
+	<Testing>
+		<StartDateTime>Jun 02 16:10 PDT</StartDateTime>
+		<StartTestTime>1559517007</StartTestTime>
+		<TestList>
+			<Test>./unittests</Test>
+		</TestList>
+		<Test Status="notrun">
+			<Name>unittests</Name>
+			<Path>.</Path>
+			<FullName>./unittests</FullName>
+			<FullCommandLine></FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Unable to find executable</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value></Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value>Unable to find executable: unit</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Jun 02 16:10 PDT</EndDateTime>
+		<EndTestTime>1559517007</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

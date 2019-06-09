@@ -72,7 +72,7 @@ int main() {
     
     // gl functions should be called after setup glad
     glEnable(GL_DEPTH_TEST);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     
     // Load/Compile/Link Shaders
@@ -93,7 +93,7 @@ int main() {
     // load models
 //    Model ourModel("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/objects/nanosuit/nanosuit.obj");
 //    Model ourModel("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/objects/bunny.obj");
-    Model ourModel("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/objects/Terrain_50000.obj");
+    Model ourModel("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/objects/bunny.obj");
     
     // render loop
     while (!glfwWindowShouldClose(window))
@@ -124,9 +124,9 @@ int main() {
         glm::mat4 model;
         model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
 //        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));    // it's a bit too big for our scene, so scale it down
-//        model = glm::scale(model, glm::vec3(.5,.5,.5));
-        model = glm::scale(model, glm::vec3(.01));
+        model = glm::scale(model, glm::vec3(.5,.5,.5));
         ourShader.setMat4("model", model);
+        
         ourModel.Draw(ourShader);
 
         

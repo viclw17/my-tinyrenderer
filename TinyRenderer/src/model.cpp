@@ -3,23 +3,27 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "model.h"
+
+#include "model.h"//including "geometry.h"
 
 Model::Model(const char *filename) : verts_(), faces_() {
-    std::ifstream in;
-    in.open (filename, std::ifstream::in);
-    if (in.fail()) return;
+    std::ifstream in; // input file stream class
+    in.open (filename, std::ifstream::in); // open file, File open for reading
+    if (in.fail()) {
+        std::cerr << "File open fail!" << std::endl;
+        return;
+    }
     std::string line;
-    while (!in.eof()) {
+    while (!in.eof()) { // while not End-of-File...
         std::getline(in, line);
-        std::istringstream iss(line.c_str());
+        std::istringstream iss(line.c_str()); // Input string stream
         char trash;
-        if (!line.compare(0, 2, "v ")) {
+        if (!line.compare(0, 2, "v ")) { // (pos,len,str); vertex line
             iss >> trash;
             Vec3f v;
             for (int i=0;i<3;i++) iss >> v.raw[i];
             verts_.push_back(v);
-        } else if (!line.compare(0, 2, "f ")) {
+        } else if (!line.compare(0, 2, "f ")) { // faces
             std::vector<int> f;
             int itrash, idx;
             iss >> trash;
@@ -36,18 +40,18 @@ Model::Model(const char *filename) : verts_(), faces_() {
 Model::~Model() {
 }
 
+
 int Model::nverts() {
     return (int)verts_.size();
 }
-
 int Model::nfaces() {
     return (int)faces_.size();
 }
 
-std::vector<int> Model::face(int idx) {
-    return faces_[idx];
-}
 
 Vec3f Model::vert(int i) {
     return verts_[i];
+}
+std::vector<int> Model::face(int idx) {
+    return faces_[idx];
 }

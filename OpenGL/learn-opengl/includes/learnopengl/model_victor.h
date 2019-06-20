@@ -37,7 +37,7 @@ public:
     // model data
     vector<Texture> textures_loaded;    // stores all the textures loaded so far, optimization to make sure textures aren't loaded more
     
-    Model(char *path);
+    Model(const char *path);
     void Draw(Shader shader);
 private:
     // model data
@@ -50,7 +50,7 @@ private:
     vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
 };
 
-Model::Model(char *path){
+Model::Model(const char *path){
     loadModel(path);
 }
 

@@ -85,15 +85,14 @@ int main() {
     #else
     // Windows
     Shader ourShader = Shader(
-        "../../../shaders/shader-lighting.vs",
-        "../../../shaders/shader-lighting.fs"
+        "../../../shaders/1.model_loading.vs",
+        "../../../shaders/1.model_loading.fs"
     );
     #endif
     
     // load models
-//    Model ourModel("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/objects/nanosuit/nanosuit.obj");
-//    Model ourModel("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/objects/bunny.obj");
-    Model ourModel("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/objects/bunny.obj");
+    Model ourModel("../../../objects/nanosuit/nanosuit.obj");
+//    Model ourModel("../../../objects/bunny.obj");
     
     // render loop
     while (!glfwWindowShouldClose(window))

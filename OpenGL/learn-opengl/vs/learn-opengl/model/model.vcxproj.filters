@@ -29,5 +29,23 @@
     <None Include="..\..\..\shaders\1.model_loading.vs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\..\shaders\framebuffers_screen.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\framebuffers_screen.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shader-lighting-simple.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shader-lighting-simple.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\unlit.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\unlit.vs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

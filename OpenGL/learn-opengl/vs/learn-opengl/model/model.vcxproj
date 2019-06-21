@@ -133,6 +133,12 @@
   <ItemGroup>
     <None Include="..\..\..\shaders\1.model_loading.fs" />
     <None Include="..\..\..\shaders\1.model_loading.vs" />
+    <None Include="..\..\..\shaders\unlit.fs" />
+    <None Include="..\..\..\shaders\framebuffers_screen.fs" />
+    <None Include="..\..\..\shaders\framebuffers_screen.vs" />
+    <None Include="..\..\..\shaders\shader-lighting-simple.fs" />
+    <None Include="..\..\..\shaders\shader-lighting-simple.vs" />
+    <None Include="..\..\..\shaders\unlit.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

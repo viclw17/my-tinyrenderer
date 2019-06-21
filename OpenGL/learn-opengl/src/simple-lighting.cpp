@@ -300,17 +300,18 @@ int main() {
         // directional light
         lightingShader.setVec3("light.direction", -0.2, -1.0, -0.3); // light.direction point from light source
         
+		// point light
+		lightingShader.setFloat("light.constant", 1.0f);
+		lightingShader.setFloat("light.linear", 0.09f);//0.09
+		lightingShader.setFloat("light.quadratic", 0.032f);//0.032
+
         // spot light
 //        lightingShader.setVec3("light.position", camera.Position); // for camera based spot light
         lightingShader.setVec3("light.direction", glm::vec3(-.5,0,-1)); // for spot light
         lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
         lightingShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         
-        // point light
-        lightingShader.setFloat("light.constant", 1.0f);
-        lightingShader.setFloat("light.linear",    0.09f);//0.09
-        lightingShader.setFloat("light.quadratic", 0.032f);//0.032
-        
+    
         // light properties
         glm::vec3 lightColor;
         lightColor = glm::vec3(1);

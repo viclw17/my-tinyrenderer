@@ -20,16 +20,16 @@ void scroll_callback           (GLFWwindow* window, double xoffset, double yoffs
 void framebuffer_size_callback (GLFWwindow* window, int    width,   int    height);
 
 // settings
-const unsigned int SCR_WIDTH  = 800;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_WIDTH  = 1280;
+const unsigned int SCR_HEIGHT = 720;
 
 // camera
 //Camera camera = Camera(); // by default camera position at 0,0,0
 glm::vec3 cameraPos = glm::vec3(0,0,5);
 Camera camera(cameraPos);
-bool firstMouse = true;
 float lastX =  SCR_WIDTH / 2.0; // center of screen
 float lastY =  SCR_HEIGHT / 2.0;
+bool firstMouse = true;
 
 // timing
 float deltaTime = 0.0f;
@@ -72,7 +72,7 @@ int main() {
     
     // gl functions should be called after setup glad
     glEnable(GL_DEPTH_TEST);
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     
     // Load/Compile/Link Shaders
@@ -84,16 +84,106 @@ int main() {
     );
     #else
     // Windows
-    Shader ourShader = Shader(
+    /*Shader ourShader = Shader(
         "../../../shaders/1.model_loading.vs",
         "../../../shaders/1.model_loading.fs"
-    );
+    );*/
+	Shader ourShader = Shader(
+		"../../../shaders/shader-lighting-simple.vs",
+		"../../../shaders/shader-lighting-simple.fs"
+	);
+	Shader floorShader(
+		"../../../shaders/unlit.vs",
+		"../../../shaders/unlit.fs");
+	Shader screenShader(
+		"../../../shaders/framebuffers_screen.vs", 
+		"../../../shaders/framebuffers_screen.fs");
     #endif
     
     // load models
-    Model ourModel("../../../objects/nanosuit/nanosuit.obj");
-//    Model ourModel("../../../objects/bunny.obj");
+    //Model ourModel("../../../objects/nanosuit/nanosuit.obj");
+    Model ourModel("../../../objects/bunny.obj");
+
+	// floor
+	float planeVertices[] = {
+		// positions          // texture Coords 
+		 5.0f, -0.5f,  5.0f,  2.0f, 0.0f,
+		-5.0f, -0.5f,  5.0f,  0.0f, 0.0f,
+		-5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
+
+		 5.0f, -0.5f,  5.0f,  2.0f, 0.0f,
+		-5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
+		 5.0f, -0.5f, -5.0f,  2.0f, 2.0f
+	};
+
+	// buffer
+	float quadVertices[] = { 
+		// vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		// positions   // texCoords
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+		 1.0f,  1.0f,  1.0f, 1.0f
+	};
+
+	// plane VAO
+	unsigned int planeVAO, planeVBO;
+	glGenVertexArrays(1, &planeVAO);
+	glGenBuffers(1, &planeVBO);
+	glBindVertexArray(planeVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, planeVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), &planeVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);// 0 pos 1 normal 2 texcoord
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1); 
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	// screen quad VAO
+	unsigned int quadVAO, quadVBO;
+	glGenVertexArrays(1, &quadVAO); // Gen
+	glGenBuffers(1, &quadVBO);
+	glBindVertexArray(quadVAO); // Bind
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	// Fill
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     
+	floorShader.use();
+	floorShader.setVec3("color", glm::vec3(1,0,0));
+	screenShader.use();
+	screenShader.setInt("screenTexture", 0);
+
+	// framebuffer configuration
+	// -------------------------
+	unsigned int framebuffer;
+	glGenFramebuffers(1, &framebuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+	// create a color attachment texture
+	unsigned int textureColorbuffer;
+	glGenTextures(1, &textureColorbuffer);
+	glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+	// create a renderbuffer object 
+	// for depth and stencil attachment (we won't be sampling these)
+	unsigned int rbo;
+	glGenRenderbuffers(1, &rbo);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT); // use a single renderbuffer object for both a depth AND stencil buffer.
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
+	// now that we actually created the framebuffer and
+	// added all attachments we want to check if it is actually complete now
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0); // activate
+
     // render loop
     while (!glfwWindowShouldClose(window))
     {
@@ -105,34 +195,84 @@ int main() {
         // input
         processInput(window);
 
+		// fist pass
+		// bind to framebuffer and draw scene as we normally would to color texture 
+		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+		glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
         // clear
         glClearColor(0,0,0, 1);
-        //glClearColor(.2,.2,.2, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
+		// draw scene
         // don't forget to enable shader before setting uniforms
         ourShader.use();
-        
+		ourShader.setFloat("iTime", glfwGetTime());
+		ourShader.setVec3("viewPos", camera.Position);
+		lightPos = glm::vec3(sin(5 * glfwGetTime()), 1, cos(5 * glfwGetTime()));
+		ourShader.setVec3("light.position", lightPos);
+		// directional light
+		ourShader.setVec3("light.direction", -0.2, -1.0, -0.3); // light.direction point from light source
+		// point light
+		ourShader.setFloat("light.constant", 1.0f);
+		ourShader.setFloat("light.linear", 0.09f);//0.09
+		ourShader.setFloat("light.quadratic", 0.032f);//0.032
+		// light properties
+		glm::vec3 lightColor;
+		lightColor = glm::vec3(1);
+		glm::vec3 diffuseColor = lightColor;
+		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.3f);
+		ourShader.setVec3("light.ambient", ambientColor);
+		ourShader.setVec3("light.diffuse", diffuseColor);
+		ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		// material properties
+		ourShader.setVec3("material.ambient", 1,1,1);
+		ourShader.setVec3("material.diffuse", 1,1,1);
+		ourShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		ourShader.setFloat("material.shininess", 32.0f);
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
-        
         // render the loaded model
         glm::mat4 model;
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-//        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));    // it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, glm::vec3(0,-1,0)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(.5,.5,.5));
         ourShader.setMat4("model", model);
-        
         ourModel.Draw(ourShader);
+		// floor
+		floorShader.use(); // use new shader
+		glBindVertexArray(planeVAO); // bind new VAO
+		floorShader.setMat4("projection", projection);
+		floorShader.setMat4("view", view);
+		floorShader.setMat4("model", model);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glBindVertexArray(0);
+
+		// second pass
+		// now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+		// clear all relevant buffers
+		//glClearColor(0, 0, 0, 1); // set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
+		//glClear(GL_COLOR_BUFFER_BIT);
+
+		screenShader.use(); // use new shader
+		glBindVertexArray(quadVAO); // bind new VAO
+		glBindTexture(GL_TEXTURE_2D, textureColorbuffer);	// use the color attachment texture as the texture of the quad plane
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 
         
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+	// optional: de-allocate all resources once they've outlived their purpose:
+	// ------------------------------------------------------------------------
+
+	glDeleteVertexArrays(1, &quadVAO);
+	glDeleteBuffers(1, &quadVBO);
 
 
     // glfw: terminate, clearing all previously allocated GLFW resources.

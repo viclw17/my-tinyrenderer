@@ -1,5 +1,5 @@
 #version 330 core
-#define LIGHT_TYPE 1 // 0:directional; 1:point; 2:spot
+#define LIGHT_TYPE 0 // 0:directional; 1:point; 2:spot
 /*
 Vertex Shader的输出在Clip Space，那Fragment Shader的输入在什么空间？
 不是NDC，而是屏幕空间Screen Space。我们前面说到Vertex Shader的输出在Clip Space，接着GPU会做透视除法变到NDC。
@@ -23,11 +23,11 @@ uniform vec3 viewPos; // to calculate specular
 
 struct Material{
     vec3 ambient;
-    vec3 diffuse;
+    //vec3 diffuse;
     vec3 specular;
-    //sampler2D diffuse; // use diffuse map
+    sampler2D diffuse; // use diffuse map
     //sampler2D specular;// use spec map
-    float     shininess;
+    float shininess;
 };
 uniform Material material;
 
@@ -78,13 +78,13 @@ void main(){
     
     // AMBIENT
     //float ambientStrength = 0.1;
-    vec3 ambient = light.ambient * material.ambient;
-    //vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
+    //vec3 ambient = light.ambient * material.ambient;
+    vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
     
     // DIFFUSE
     float diff = max(dot(norm, lightDir), 0);
-	vec3 diffuse = light.diffuse * diff * material.diffuse;
-    //vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+	//vec3 diffuse = light.diffuse * diff * material.diffuse;
+    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
     
     // SPECULAR
     //float specularStrength = 0.5;

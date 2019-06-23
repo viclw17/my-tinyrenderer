@@ -1,11 +1,15 @@
 #version 330 core
+
 #define LIGHT_TYPE 0 // 0:directional; 1:point; 2:spot
+#define VIS_DEPTH 1
+
 /*
 Vertex Shader的输出在Clip Space，那Fragment Shader的输入在什么空间？
 不是NDC，而是屏幕空间Screen Space。我们前面说到Vertex Shader的输出在Clip Space，接着GPU会做透视除法变到NDC。
 这之后GPU还有一步，应用视口变换，转换到Screen Space，输入给Fragment Shader：
 (Vertex Shader) => Clip Space => (透视除法) => NDC => (视口变换) => Screen Space => (Fragment Shader)。
  */
+
 in vec2 TexCoords;
 in vec3 Normal;
 in vec3 FragPos;
@@ -13,13 +17,7 @@ in vec3 FragPos;
 out vec4 FragColor;
 
 uniform float iTime; // we set this variable in the OpenGL code.
-//uniform sampler2D texture0;
-//uniform sampler2D texture1;
-
-//uniform vec3 objectColor;
-//uniform vec3 lightColor; // for ambient
-//uniform vec3 lightPos; // to calculate diffuse
-uniform vec3 viewPos; // to calculate specular
+uniform vec3 viewPos;
 
 struct Material{
     vec3 ambient;
@@ -32,11 +30,12 @@ struct Material{
 uniform Material material;
 
 struct Light {
-    vec3 position; // for point light, spot light; no longer necessery for directional light
-    vec3 direction; // for directional light, spot light
+    vec3 position; // for point light & spot light; not necessery for directional light
+    vec3 direction; // for directional light & spot light
     float cutOff;
     float outerCutOff;
     
+	// lightColor
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -47,8 +46,6 @@ struct Light {
 };
 uniform Light light;
 
-
-
 // vis depth buffer
 float near = 0.1;
 float far = 100.0;
@@ -57,19 +54,11 @@ float LinearizeDepth(float depth){
     return (2.0 * near * far) / (far + near - z * (far - near));
 }
 
-
-
-
-
-
 void main(){
-    
-    // time, textures
-//    float sine = (sin(iTime*5)+1)*.5;
-//    vec4 texColor = mix(texture(texture0, TexCoord), texture(texture1, TexCoord), 0);
     
     // prepare for lighting calculation
     vec3 norm = normalize(Normal);
+
 #if LIGHT_TYPE == 0
     vec3 lightDir = normalize(-light.direction); // light.direction is pointing from light source
 #else
@@ -115,6 +104,10 @@ void main(){
     vec3 result = ambient + diffuse + specular;
 
     FragColor = vec4(result, 1.0);
-//    float depth = LinearizeDepth(gl_FragCoord.z) / far; // divide by far for demonstration
-//    FragColor = vec4(vec3(depth), 1.0);
+
+#if VIS_DEPTH == 1
+	//FragColor = vec4(vec3(gl_FragCoord.z), 1.0);
+    float depth = LinearizeDepth(gl_FragCoord.z) / far; // divide by far for demonstration
+    FragColor = vec4(vec3(depth), 1.0);
+#endif
 }

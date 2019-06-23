@@ -47,7 +47,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
     // create glfw window
@@ -59,6 +59,7 @@ int main() {
     }
 
     glfwMakeContextCurrent(window);
+
     // setup callback
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
@@ -80,15 +81,14 @@ int main() {
     // MacOS
     #ifdef __APPLE__
     Shader ourShader = Shader(
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/1.model_loading.vs",
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/1.model_loading.fs"
+        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-lighting-simple.vs",
+        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-lighting-simple.fs"
     );
     #else
     // Windows
 	Shader ourShader = Shader(
 		"../../../shaders/shader-lighting-simple.vs",
-		"../../../shaders/shader-lighting-simple.fs"
-	);
+		"../../../shaders/shader-lighting-simple.fs");
 	Shader floorShader(
 		"../../../shaders/unlit.vs",
 		"../../../shaders/unlit.fs");
@@ -113,9 +113,9 @@ int main() {
 		 5.0f, -0.5f, -5.0f,  2.0f, 2.0f
 	};
 
-	// buffer
+	// quad for framebuffer
 	float quadVertices[] = { 
-		// vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		// quad that fills the entire screen in Normalized Device Coordinates.
 		// positions   // texCoords
 		-1.0f,  1.0f,  0.0f, 1.0f,
 		-1.0f, -1.0f,  0.0f, 0.0f,
@@ -133,17 +133,16 @@ int main() {
 	glBindVertexArray(planeVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, planeVBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), &planeVertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);// 0 pos 1 normal 2 texcoord
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1); 
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-	// screen quad VAO
+	// quad VAO
 	unsigned int quadVAO, quadVBO;
-	glGenVertexArrays(1, &quadVAO); // Gen
+	glGenVertexArrays(1, &quadVAO);
 	glGenBuffers(1, &quadVBO);
-	glBindVertexArray(quadVAO); // Bind
+	glBindVertexArray(quadVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-	// Fill
 	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
@@ -151,13 +150,10 @@ int main() {
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     
 	unsigned int floorTexture = loadTexture("../../../textures/parchment.jpg");
-	//floorShader.use();
-	//floorShader.setInt("diffuseTex", 0);
-	screenShader.use();
-	screenShader.setInt("screenTexture", 0);
+	//screenShader.use();
+	//screenShader.setInt("screenTexture", 0);
 
 	// framebuffer configuration
-	// -------------------------
 	unsigned int framebuffer;
 	glGenFramebuffers(1, &framebuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
@@ -176,15 +172,14 @@ int main() {
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT); // use a single renderbuffer object for both a depth AND stencil buffer.
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
-	// now that we actually created the framebuffer and
-	// added all attachments we want to check if it is actually complete now
+	// check if complete
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << endl;
-	glBindFramebuffer(GL_FRAMEBUFFER, 0); // activate
+	// bind back to default framebuffer
+	glBindFramebuffer(GL_FRAMEBUFFER, 0); 
 
     // render loop
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)){
         // per-frame time logic
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
@@ -200,10 +195,10 @@ int main() {
         // clear
         glClearColor(0,0,0, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
+       
 		// draw scene
-        // don't forget to enable shader before setting uniforms
-        ourShader.use();
+		// draw model
+        ourShader.use(); // don't forget to enable shader before setting uniforms
 		// bind texture!
 		glBindTexture(GL_TEXTURE_2D, floorTexture);
 		ourShader.setFloat("iTime", glfwGetTime());
@@ -240,7 +235,8 @@ int main() {
         model = glm::scale(model, glm::vec3(.5,.5,.5));
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
-		// floor
+
+		// draw floor
 		floorShader.use(); // use new shader
 		glBindVertexArray(planeVAO); // bind new VAO
 		// bind texture!
@@ -269,17 +265,13 @@ int main() {
     }
 
 	// optional: de-allocate all resources once they've outlived their purpose:
-	// ------------------------------------------------------------------------
-
 	glDeleteVertexArrays(1, &quadVAO);
 	glDeleteBuffers(1, &quadVBO);
-
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     glfwTerminate();
     return 0;
 }
-
 
 
 
@@ -308,13 +300,14 @@ void processInput(GLFWwindow *window){
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
     }
-    
-    
 //    if(glfwGetKey(window,GLFW_KEY_Q)==GLFW_PRESS)
 //        cameraPos += cameraSpeed * cameraUp ;
 //    if(glfwGetKey(window, GLFW_KEY_E)==GLFW_PRESS)
 //        cameraPos -= cameraSpeed * cameraUp ;
 }
+
+
+
 
 // glfw: whenever the mouse moves, this callback is called
 void mouse_callback(GLFWwindow* window, double xpos, double ypos){
@@ -354,8 +347,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
 }
 
+
+
+
 // utility function for loading a 2D texture from file
-// ---------------------------------------------------
 unsigned int loadTexture(char const* path)
 {
 	unsigned int textureID;

@@ -1,6 +1,6 @@
 #version 330 core
 
-#define VIS_DEPTH 1
+#define VIS_DEPTH 0
 
 in vec2 TexCoords;
 out vec4 FragColor;

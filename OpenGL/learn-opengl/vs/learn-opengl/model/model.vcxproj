@@ -131,8 +131,8 @@
     <ClCompile Include="..\..\..\src\simple-model.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\shaders\1.model_loading.fs" />
-    <None Include="..\..\..\shaders\1.model_loading.vs" />
+    <None Include="..\..\..\shaders\skybox.fs" />
+    <None Include="..\..\..\shaders\skybox.vs" />
     <None Include="..\..\..\shaders\unlit.fs" />
     <None Include="..\..\..\shaders\framebuffers_screen.fs" />
     <None Include="..\..\..\shaders\framebuffers_screen.vs" />

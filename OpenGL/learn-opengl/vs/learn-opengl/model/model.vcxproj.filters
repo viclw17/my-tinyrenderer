@@ -23,12 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\shaders\1.model_loading.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\..\shaders\1.model_loading.vs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\..\..\shaders\framebuffers_screen.vs">
       <Filter>Resource Files</Filter>
     </None>
@@ -45,6 +39,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\..\..\shaders\unlit.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\skybox.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\skybox.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

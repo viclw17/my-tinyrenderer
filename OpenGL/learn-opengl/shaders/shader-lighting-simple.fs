@@ -1,7 +1,9 @@
 #version 330 core
 
 #define LIGHT_TYPE 0 // 0:directional; 1:point; 2:spot
-#define VIS_DEPTH 1
+#define VIS_DEPTH 0
+#define REFLECTION 0
+#define REFRACTION 1
 
 /*
 Vertex Shader的输出在Clip Space，那Fragment Shader的输入在什么空间？
@@ -13,11 +15,13 @@ Vertex Shader的输出在Clip Space，那Fragment Shader的输入在什么空间
 in vec2 TexCoords;
 in vec3 Normal;
 in vec3 FragPos;
+in vec3 Position;
 
 out vec4 FragColor;
 
 uniform float iTime; // we set this variable in the OpenGL code.
-uniform vec3 viewPos;
+uniform vec3 viewPos; // camera position
+uniform samplerCube skybox;
 
 struct Material{
     vec3 ambient;
@@ -102,7 +106,6 @@ void main(){
 #endif
     
     vec3 result = ambient + diffuse + specular;
-
     FragColor = vec4(result, 1.0);
 
 #if VIS_DEPTH == 1
@@ -110,4 +113,15 @@ void main(){
     float depth = LinearizeDepth(gl_FragCoord.z) / far; // divide by far for demonstration
     FragColor = vec4(vec3(depth), 1.0);
 #endif
+#if REFLECTION == 1
+	vec3 I = normalize(Position - viewPos);
+	vec3 R = reflect(I, normalize(Normal));
+	FragColor = vec4(texture(skybox, R).rgb, 1.0);
+#endif
+#if REFRACTION == 1
+	float ratio = 1.00 / 1.52;
+	vec3 I = normalize(Position - viewPos);
+	vec3 R = refract(I, normalize(Normal), ratio);
+	FragColor = vec4(texture(skybox, R).rgb, 1.0);
+#endif	
 }

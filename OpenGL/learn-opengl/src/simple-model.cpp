@@ -81,10 +81,32 @@ int main() {
     // Load/Compile/Link Shaders
     // MacOS
     #ifdef __APPLE__
+    string path = "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl";
+
     Shader ourShader = Shader(
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-lighting-simple.vs",
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shader-lighting-simple.fs"
-    );
+                              (path + string("/shaders/shader-lighting-simple.vs")).c_str(),
+                              (path + string("/shaders/shader-lighting-simple.fs")).c_str());
+    Shader floorShader(
+                       (path + string("/shaders/unlit.vs")).c_str(),
+                       (path + string("/shaders/unlit.fs")).c_str());
+    Shader screenShader(
+                        (path + string("/shaders/framebuffers_screen.vs")).c_str(),
+                        (path + string("/shaders/framebuffers_screen.fs")).c_str());
+    Shader skyboxShader(
+                        (path + string("/shaders/skybox.vs")).c_str(),
+                        (path + string("/shaders/skybox.fs")).c_str());
+    // load models
+    Model ourModel((path + string("/objects/untitled.obj")).c_str());
+    // load textures
+    unsigned int floorTexture = loadTexture((path + string("/textures/parchment.jpg")).c_str());
+    vector<std::string> faces{
+        ((path + string("/textures/skybox/right.jpg")).c_str()),
+        ((path + string("/textures/skybox/left.jpg")).c_str()),
+        ((path + string("/textures/skybox/top.jpg")).c_str()),
+        ((path + string("/textures/skybox/bottom.jpg")).c_str()),
+        ((path + string("/textures/skybox/front.jpg")).c_str()),
+        ((path + string("/textures/skybox/back.jpg")).c_str())
+    };
     #else
     // Windows
 	Shader ourShader = Shader(
@@ -99,11 +121,20 @@ int main() {
 	Shader skyboxShader(
 		"../../../shaders/skybox.vs",
 		"../../../shaders/skybox.fs");
-    #endif
-    
     // load models
     //Model ourModel("../../../objects/nanosuit/nanosuit.obj");
     Model ourModel("../../../objects/untitled.obj");
+    // load textures
+    unsigned int floorTexture = loadTexture("../../../textures/parchment.jpg");
+    vector<std::string> faces{
+     ("../../../textures/skybox/right.jpg"),
+     ("../../../textures/skybox/left.jpg"),
+     ("../../../textures/skybox/top.jpg"),
+     ("../../../textures/skybox/bottom.jpg"),
+     ("../../../textures/skybox/front.jpg"),
+     ("../../../textures/skybox/back.jpg")
+     };
+    #endif
 
 	// floor
 	float planeVertices[] = {
@@ -234,7 +265,7 @@ int main() {
 
 
 	// load textures
-	unsigned int floorTexture = loadTexture("../../../textures/parchment.jpg");
+//    unsigned int floorTexture = loadTexture("../../../textures/parchment.jpg");
 
 	// order:
 	// +X (right)
@@ -251,14 +282,17 @@ int main() {
 		("../../../textures/skybox/front.jpg"),
 		("../../../textures/skybox/back.jpg")
 	};*/
-	vector<std::string> faces{
-		("../../../textures/skybox/sky/bluecloud_rt.jpg"),
-		("../../../textures/skybox/sky/bluecloud_lf.jpg"),
-		("../../../textures/skybox/sky/bluecloud_up.jpg"),
-		("../../../textures/skybox/sky/bluecloud_dn.jpg"),
-		("../../../textures/skybox/sky/bluecloud_bk.jpg"),
-		("../../../textures/skybox/sky/bluecloud_ft.jpg")
-	};
+//    vector<std::string> faces{
+//        ("../../../textures/skybox/sky/bluecloud_rt.jpg"),
+//        ("../../../textures/skybox/sky/bluecloud_lf.jpg"),
+//        ("../../../textures/skybox/sky/bluecloud_up.jpg"),
+//        ("../../../textures/skybox/sky/bluecloud_dn.jpg"),
+//        ("../../../textures/skybox/sky/bluecloud_bk.jpg"),
+//        ("../../../textures/skybox/sky/bluecloud_ft.jpg")
+//    };
+    
+    
+    
 	unsigned int cubemapTexture = loadCubemap(faces);
 	
 
@@ -334,7 +368,7 @@ int main() {
 		floorShader.setMat4("projection", projection);
 		floorShader.setMat4("view", view);
 		floorShader.setMat4("model", model);
-		//glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		
 
 		// draw skybox as last
@@ -373,8 +407,8 @@ int main() {
 	// optional: de-allocate all resources once they've outlived their purpose:
 	glDeleteVertexArrays(1, &quadVAO);
 	glDeleteBuffers(1, &quadVBO);
-	//glDeleteVertexArrays(1, &skyboxVAO);
-	//glDeleteBuffers(1, &skyboxVBO);
+	glDeleteVertexArrays(1, &skyboxVAO);
+	glDeleteBuffers(1, &skyboxVBO);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     glfwTerminate();

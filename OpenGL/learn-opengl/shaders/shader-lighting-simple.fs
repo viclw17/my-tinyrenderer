@@ -1,9 +1,9 @@
 #version 330 core
 
-#define LIGHT_TYPE 0 // 0:directional; 1:point; 2:spot
+#define LIGHT_TYPE 1 // 0:directional; 1:point; 2:spot
 #define VIS_DEPTH 0
 #define REFLECTION 0
-#define REFRACTION 1
+#define REFRACTION 0
 
 /*
 Vertex Shader的输出在Clip Space，那Fragment Shader的输入在什么空间？

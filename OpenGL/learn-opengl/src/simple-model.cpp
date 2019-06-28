@@ -265,34 +265,6 @@ int main() {
 
 
 	// load textures
-//    unsigned int floorTexture = loadTexture("../../../textures/parchment.jpg");
-
-	// order:
-	// +X (right)
-	// -X (left)
-	// +Y (top)
-	// -Y (bottom)
-	// +Z (front) 
-	// -Z (back)
-	/*vector<std::string> faces{
-		("../../../textures/skybox/right.jpg"),
-		("../../../textures/skybox/left.jpg"),
-		("../../../textures/skybox/top.jpg"),
-		("../../../textures/skybox/bottom.jpg"),
-		("../../../textures/skybox/front.jpg"),
-		("../../../textures/skybox/back.jpg")
-	};*/
-//    vector<std::string> faces{
-//        ("../../../textures/skybox/sky/bluecloud_rt.jpg"),
-//        ("../../../textures/skybox/sky/bluecloud_lf.jpg"),
-//        ("../../../textures/skybox/sky/bluecloud_up.jpg"),
-//        ("../../../textures/skybox/sky/bluecloud_dn.jpg"),
-//        ("../../../textures/skybox/sky/bluecloud_bk.jpg"),
-//        ("../../../textures/skybox/sky/bluecloud_ft.jpg")
-//    };
-    
-    
-    
 	unsigned int cubemapTexture = loadCubemap(faces);
 	
 
@@ -368,7 +340,7 @@ int main() {
 		floorShader.setMat4("projection", projection);
 		floorShader.setMat4("view", view);
 		floorShader.setMat4("model", model);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		//glDrawArrays(GL_TRIANGLES, 0, 6);
 		
 
 		// draw skybox as last

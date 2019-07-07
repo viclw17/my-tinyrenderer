@@ -6,9 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 #include <iostream>
-
 #include <learnopengl/shader_victor.h>
 #include <learnopengl/camera_victor.h>
 #include <learnopengl/model_victor.h>
@@ -22,8 +20,8 @@ unsigned int loadTexture(const char* path);
 unsigned int loadCubemap(vector<std::string> faces);
 
 // settings
-const unsigned int SCR_WIDTH  = 1280;
-const unsigned int SCR_HEIGHT = 720;
+const unsigned int SCR_WIDTH  = 500;
+const unsigned int SCR_HEIGHT = 500;
 
 // camera
 //Camera camera = Camera(); // by default camera position at 0,0,0
@@ -32,18 +30,12 @@ Camera camera(cameraPos);
 float lastX =  SCR_WIDTH / 2.0; // center of screen
 float lastY =  SCR_HEIGHT / 2.0;
 bool firstMouse = true;
-
-// timing
-float deltaTime = 0.0f;
+float deltaTime = 0.0f; // timing
 float lastFrame = 0.0f;
-
-// lighting
-glm::vec3 lightPos(1.2f, 0, 2.0f);
-
+glm::vec3 lightPos(1.2f, 0, 2.0f); // lighting
 
 int main() {
-    // glfw: init and config
-    glfwInit();
+    glfwInit(); // glfw: init and config
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -77,23 +69,17 @@ int main() {
     glEnable(GL_DEPTH_TEST);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-
     // Load/Compile/Link Shaders
-    // MacOS
-    #ifdef __APPLE__
+    #ifdef __APPLE__ // MacOS
     string path = "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl";
-
-    Shader ourShader = Shader(
-                              (path + string("/shaders/shader-lighting-simple.vs")).c_str(),
+    // different way of initializing shader
+    Shader ourShader = Shader((path + string("/shaders/shader-lighting-simple.vs")).c_str(),
                               (path + string("/shaders/shader-lighting-simple.fs")).c_str());
-    Shader floorShader(
-                       (path + string("/shaders/unlit.vs")).c_str(),
+    Shader floorShader((path + string("/shaders/unlit.vs")).c_str(),
                        (path + string("/shaders/unlit.fs")).c_str());
-    Shader screenShader(
-                        (path + string("/shaders/framebuffers_screen.vs")).c_str(),
+    Shader screenShader((path + string("/shaders/framebuffers_screen.vs")).c_str(),
                         (path + string("/shaders/framebuffers_screen.fs")).c_str());
-    Shader skyboxShader(
-                        (path + string("/shaders/skybox.vs")).c_str(),
+    Shader skyboxShader((path + string("/shaders/skybox.vs")).c_str(),
                         (path + string("/shaders/skybox.fs")).c_str());
     // load models
     Model ourModel((path + string("/objects/untitled.obj")).c_str());
@@ -107,22 +93,21 @@ int main() {
         ((path + string("/textures/skybox/front.jpg")).c_str()),
         ((path + string("/textures/skybox/back.jpg")).c_str())
     };
-    #else
-    // Windows
-	Shader ourShader = Shader(
-		"../../../shaders/shader-lighting-simple.vs",
-		"../../../shaders/shader-lighting-simple.fs");
-	Shader floorShader(
-		"../../../shaders/unlit.vs",
-		"../../../shaders/unlit.fs");
-	Shader screenShader(
-		"../../../shaders/framebuffers_screen.vs", 
-		"../../../shaders/framebuffers_screen.fs");
-	Shader skyboxShader(
-		"../../../shaders/skybox.vs",
-		"../../../shaders/skybox.fs");
+    #else // Windows
+    Shader ourShader = Shader(
+        "../../../shaders/shader-lighting-simple.vs",
+        "../../../shaders/shader-lighting-simple.fs");
+    Shader floorShader(
+        "../../../shaders/unlit.vs",
+        "../../../shaders/unlit.fs");
+    Shader screenShader(
+        "../../../shaders/framebuffers_screen.vs",
+        "../../../shaders/framebuffers_screen.fs");
+    Shader skyboxShader(
+        "../../../shaders/skybox.vs",
+        "../../../shaders/skybox.fs");
     // load models
-    //Model ourModel("../../../objects/nanosuit/nanosuit.obj");
+    // Model ourModel("../../../objects/nanosuit/nanosuit.obj");
     Model ourModel("../../../objects/untitled.obj");
     // load textures
     unsigned int floorTexture = loadTexture("../../../textures/parchment.jpg");
@@ -263,14 +248,8 @@ int main() {
 	// bind back to default framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-
 	// load textures
 	unsigned int cubemapTexture = loadCubemap(faces);
-	
-
-	// shader configuration
-	skyboxShader.use();
-	skyboxShader.setInt("skybox", 0);
 
     // render loop
     while (!glfwWindowShouldClose(window)){
@@ -316,7 +295,7 @@ int main() {
 		ourShader.setVec3("light.specular", 1,1,1);
 		// material properties
 		ourShader.setVec3("material.ambient", 1,1,1);
-		//ourShader.setVec3("material.diffuse", 1,1,1);
+		ourShader.setVec3("material.diffuse", 1,1,1);
 		ourShader.setVec3("material.specular", 1,1,1);
 		ourShader.setFloat("material.shininess", 32.0f);
         // view/projection transformations
@@ -342,8 +321,9 @@ int main() {
 		floorShader.setMat4("model", model);
 		//glDrawArrays(GL_TRIANGLES, 0, 6);
 		
-
 		// draw skybox as last
+        skyboxShader.use();
+        skyboxShader.setInt("skybox", 0);
 		//glDepthMask(GL_FALSE); 
 		glDepthFunc(GL_LEQUAL);// change depth function so depth test passes when values are equal to depth buffer's content
 		skyboxShader.use();
@@ -354,7 +334,7 @@ int main() {
 		skyboxShader.setMat4("view", view);
 		skyboxShader.setMat4("projection", projection);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		//glDepthMask(GL_TRUE); 
+		//glDepthMask(GL_TRUE);
 		glDepthFunc(GL_LESS);// set depth function back to default
 
 		//glBindVertexArray(0);
@@ -481,6 +461,8 @@ unsigned int loadTexture(char const* path)
 			format = GL_RGB;
 		else if (nrComponents == 4)
 			format = GL_RGBA;
+        else
+            format = GL_RGB;
 
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);

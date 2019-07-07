@@ -4,10 +4,9 @@ layout (location = 1) in vec3 aNormal; // normal vectors
 layout (location = 2) in vec3 aTexCoord;
 
 // pass to frag shader
-out vec3 FragPos;
+out vec3 FragPos; // fragments world position for shading
 out vec3 Normal;
 out vec2 TexCoords;
-out vec3 Position;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -19,6 +18,7 @@ void main()
     //gl_Position = projection * view * model * vec4(aPos, 1.0f); // achieve 3d
     
     FragPos = vec3(model * vec4(aPos,1.0)); // from local space to world space
+    
     //Normal = aNormal;
 	// mul with normal matrix
     //Normal = mat3(transpose(inverse(model))) * aNormal;
@@ -29,6 +29,5 @@ void main()
 
 	// for reflection/refraction
 	Normal = mat3(transpose(inverse(model))) * aNormal;
-	Position = vec3(model * vec4(aPos, 1.0)); // world space
 	gl_Position = projection * view * model * vec4(aPos, 1.0);
 }

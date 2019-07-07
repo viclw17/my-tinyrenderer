@@ -12,14 +12,12 @@
 
 class Shader {
 public:
-	unsigned int ID;
+	unsigned int ID; // shader program ID
 	Shader(const char* vertexPath, const char* fragmentPath) {
 		std::ifstream vShaderFile;
 		std::ifstream fShaderFile;
-
 		std::string vertexCode;
 		std::string fragmentCode;
-
 		vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
@@ -76,13 +74,12 @@ public:
 			std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 		};
 
-		// shader Program
+		// shader Program, attach compiled shaders and linked into program
 		ID = glCreateProgram();
 		glAttachShader(ID, vertex);
 		glAttachShader(ID, fragment);
 		glLinkProgram(ID);
-
-		//checkCompileErrors(ID, "PROGRAM");
+		checkCompileErrors(ID, "PROGRAM");
 		// print linking errors if any
 		glGetProgramiv(ID, GL_LINK_STATUS, &success);
 		if (!success)

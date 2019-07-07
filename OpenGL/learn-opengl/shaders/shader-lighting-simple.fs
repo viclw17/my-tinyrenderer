@@ -15,7 +15,6 @@ Vertex Shader的输出在Clip Space，那Fragment Shader的输入在什么空间
 in vec2 TexCoords;
 in vec3 Normal;
 in vec3 FragPos;
-in vec3 Position;
 
 out vec4 FragColor;
 
@@ -25,9 +24,9 @@ uniform samplerCube skybox;
 
 struct Material{
     vec3 ambient;
-    //vec3 diffuse;
+    vec3 diffuse;
     vec3 specular;
-    sampler2D diffuse; // use diffuse map
+    //sampler2D diffuse; // use diffuse map
     //sampler2D specular;// use spec map
     float shininess;
 };
@@ -71,13 +70,13 @@ void main(){
     
     // AMBIENT
     //float ambientStrength = 0.1;
-    //vec3 ambient = light.ambient * material.ambient;
-    vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
+    vec3 ambient = light.ambient * material.ambient;
+    //vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
     
     // DIFFUSE
     float diff = max(dot(norm, lightDir), 0);
-	//vec3 diffuse = light.diffuse * diff * material.diffuse;
-    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+	vec3 diffuse = light.diffuse * diff * material.diffuse;
+    //vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
     
     // SPECULAR
     //float specularStrength = 0.5;
@@ -109,19 +108,19 @@ void main(){
     FragColor = vec4(result, 1.0);
 
 #if VIS_DEPTH == 1
-	//FragColor = vec4(vec3(gl_FragCoord.z), 1.0);
+    //FragColor = vec4(vec3(gl_FragCoord.z), 1.0);
     float depth = LinearizeDepth(gl_FragCoord.z) / far; // divide by far for demonstration
     FragColor = vec4(vec3(depth), 1.0);
 #endif
 #if REFLECTION == 1
-	vec3 I = normalize(Position - viewPos);
-	vec3 R = reflect(I, normalize(Normal));
-	FragColor = vec4(texture(skybox, R).rgb, 1.0);
+    vec3 I = normalize(FragPos - viewPos);
+    vec3 R = reflect(I, normalize(Normal));
+    FragColor = vec4(texture(skybox, R).rgb, 1.0);
 #endif
 #if REFRACTION == 1
-	float ratio = 1.00 / 1.52;
-	vec3 I = normalize(Position - viewPos);
-	vec3 R = refract(I, normalize(Normal), ratio);
-	FragColor = vec4(texture(skybox, R).rgb, 1.0);
-#endif	
+    float ratio = 1.00 / 1.52;
+    vec3 I = normalize(FragPos - viewPos);
+    vec3 R = refract(I, normalize(Normal), ratio);
+    FragColor = vec4(texture(skybox, R).rgb, 1.0);
+#endif
 }

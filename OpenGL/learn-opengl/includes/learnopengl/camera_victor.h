@@ -17,7 +17,8 @@ enum Camera_Movement{
 };
 
 // default cam values
-const float YAW         = -90; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+const float YAW         = -90;
+// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 const float PITCH       = 0;
 const float SPEED       = 5;
 const float SENSITIVITY = 0.1;

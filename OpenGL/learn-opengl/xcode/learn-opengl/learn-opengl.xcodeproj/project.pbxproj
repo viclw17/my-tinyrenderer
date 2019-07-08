@@ -38,6 +38,14 @@
 		991F76E622A4909700A47062 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
 		991F76EC22A490AA00A47062 /* simple-model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 991F76DB22A4906300A47062 /* simple-model.cpp */; };
 		991F76EE22A490DE00A47062 /* libassimp.4.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 991F76ED22A490DE00A47062 /* libassimp.4.1.0.dylib */; };
+		99936B5E22D2990200954F62 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 99CD914A22890B2F008F623A /* glad.c */; };
+		99936B6022D2990200954F62 /* libassimp.4.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 991F76ED22A490DE00A47062 /* libassimp.4.1.0.dylib */; };
+		99936B6122D2990200954F62 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD925B22890C69008F623A /* libglfw3.a */; };
+		99936B6222D2990200954F62 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910322890AE5008F623A /* IOKit.framework */; };
+		99936B6322D2990200954F62 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD910122890ADF008F623A /* CoreVideo.framework */; };
+		99936B6422D2990200954F62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
+		99936B6522D2990200954F62 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
+		99936B6C22D2996800954F62 /* simple-shadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99936B6B22D2996800954F62 /* simple-shadow.cpp */; };
 		99CD90FB22890AC1008F623A /* simple-base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CD90F922890AC1008F623A /* simple-base.cpp */; };
 		99CD90FE22890AD4008F623A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FD22890AD4008F623A /* Cocoa.framework */; };
 		99CD910022890ADA008F623A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CD90FF22890ADA008F623A /* OpenGL.framework */; };
@@ -91,6 +99,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		99936B6622D2990200954F62 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		99CD90EC22890AA3008F623A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -127,6 +144,8 @@
 		991F76EF22A4C10700A47062 /* mesh_victor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mesh_victor.h; sourceTree = "<group>"; };
 		991F76F022A4C39C00A47062 /* model_victor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = model_victor.h; sourceTree = "<group>"; };
 		991F76F122A4C57700A47062 /* objects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = objects; path = ../../objects; sourceTree = "<group>"; };
+		99936B6A22D2990200954F62 /* learn-opengl-shadow */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-shadow"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99936B6B22D2996800954F62 /* simple-shadow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "simple-shadow.cpp"; sourceTree = "<group>"; };
 		99CD90EE22890AA3008F623A /* learn-opengl-simple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "learn-opengl-simple"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CD90F922890AC1008F623A /* simple-base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "simple-base.cpp"; path = "../../../src/simple-base.cpp"; sourceTree = "<group>"; };
 		99CD90FD22890AD4008F623A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -447,6 +466,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99936B5F22D2990200954F62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99936B6022D2990200954F62 /* libassimp.4.1.0.dylib in Frameworks */,
+				99936B6122D2990200954F62 /* libglfw3.a in Frameworks */,
+				99936B6222D2990200954F62 /* IOKit.framework in Frameworks */,
+				99936B6322D2990200954F62 /* CoreVideo.framework in Frameworks */,
+				99936B6422D2990200954F62 /* OpenGL.framework in Frameworks */,
+				99936B6522D2990200954F62 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99CD90EB22890AA3008F623A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -496,6 +528,7 @@
 				99040052228D3FA500261A09 /* learn-opengl-lighting */,
 				991F76D622A4803C00A47062 /* shadertoy */,
 				991F76EB22A4909700A47062 /* learn-opengl-model */,
+				99936B6A22D2990200954F62 /* learn-opengl-shadow */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -504,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				991F76DB22A4906300A47062 /* simple-model.cpp */,
+				99936B6B22D2996800954F62 /* simple-shadow.cpp */,
 				991F76D722A480A000A47062 /* shadertoy.cpp */,
 				99040053228D3FDA00261A09 /* simple-lighting.cpp */,
 				9904002F228BB82000261A09 /* simple-cube.cpp */,
@@ -923,6 +957,23 @@
 			productReference = 991F76EB22A4909700A47062 /* learn-opengl-model */;
 			productType = "com.apple.product-type.tool";
 		};
+		99936B5B22D2990200954F62 /* learn-opengl-shadow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99936B6722D2990200954F62 /* Build configuration list for PBXNativeTarget "learn-opengl-shadow" */;
+			buildPhases = (
+				99936B5C22D2990200954F62 /* Sources */,
+				99936B5F22D2990200954F62 /* Frameworks */,
+				99936B6622D2990200954F62 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "learn-opengl-shadow";
+			productName = "learn-opengl";
+			productReference = 99936B6A22D2990200954F62 /* learn-opengl-shadow */;
+			productType = "com.apple.product-type.tool";
+		};
 		99CD90ED22890AA3008F623A /* learn-opengl-simple */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99CD90F522890AA3008F623A /* Build configuration list for PBXNativeTarget "learn-opengl-simple" */;
@@ -977,6 +1028,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 99CD90E522890AA3008F623A;
 			productRefGroup = 99CD90EF22890AA3008F623A /* Products */;
@@ -989,6 +1041,7 @@
 				99040044228D3FA500261A09 /* learn-opengl-lighting */,
 				991F76C822A4803C00A47062 /* shadertoy */,
 				991F76DD22A4909700A47062 /* learn-opengl-model */,
+				99936B5B22D2990200954F62 /* learn-opengl-shadow */,
 			);
 		};
 /* End PBXProject section */
@@ -1027,6 +1080,15 @@
 			files = (
 				991F76EC22A490AA00A47062 /* simple-model.cpp in Sources */,
 				991F76E022A4909700A47062 /* glad.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99936B5C22D2990200954F62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99936B5E22D2990200954F62 /* glad.c in Sources */,
+				99936B6C22D2996800954F62 /* simple-shadow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1172,22 @@
 			name = Debug;
 		};
 		991F76EA22A4909700A47062 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		99936B6822D2990200954F62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		99936B6922D2990200954F62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -1297,6 +1375,15 @@
 			buildConfigurations = (
 				991F76E922A4909700A47062 /* Debug */,
 				991F76EA22A4909700A47062 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		99936B6722D2990200954F62 /* Build configuration list for PBXNativeTarget "learn-opengl-shadow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99936B6822D2990200954F62 /* Debug */,
+				99936B6922D2990200954F62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

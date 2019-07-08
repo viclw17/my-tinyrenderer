@@ -2,7 +2,7 @@
 
 #define LIGHT_TYPE 0 // 0:directional; 1:point; 2:spot
 #define VIS_DEPTH 0
-#define REFLECTION 1
+#define REFLECTION 0
 #define REFRACTION 0
 
 /*
@@ -24,10 +24,10 @@ uniform samplerCube skybox;
 
 struct Material{
     vec3 ambient;
-    vec3 diffuse;
+//    vec3 diffuse;
+    sampler2D diffuse;
     vec3 specular;
-    //sampler2D diffuse; // use diffuse map
-    //sampler2D specular;// use spec map
+    //sampler2D specular;
     float shininess;
 };
 uniform Material material;
@@ -70,13 +70,13 @@ void main(){
     
     // AMBIENT
     //float ambientStrength = 0.1;
-    vec3 ambient = light.ambient * material.ambient;
-    //vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
+//    vec3 ambient = light.ambient * material.ambient;
+    vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
     
     // DIFFUSE
     float diff = max(dot(norm, lightDir), 0);
-	vec3 diffuse = light.diffuse * diff * material.diffuse;
-    //vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+//    vec3 diffuse = light.diffuse * diff * material.diffuse;
+    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
     
     // SPECULAR
     //float specularStrength = 0.5;

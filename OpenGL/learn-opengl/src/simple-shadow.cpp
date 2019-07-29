@@ -83,6 +83,7 @@ int main()
     
     // build and compile shaders
     // -------------------------
+#ifdef __APPLE__ // MacOS
     string path = "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl";
     Shader simpleDepthShader((path + string("/shaders/shadow-mapping-depth.vs")).c_str(),
                              (path + string("/shaders/shadow-mapping-depth.fs")).c_str());
@@ -90,7 +91,17 @@ int main()
                           (path + string("/shaders/debugQuadDepth.fs")).c_str());
     Shader shader((path + string("/shaders/shadow-mapping.vs")).c_str(),
                   (path + string("/shaders/shadow-mapping.fs")).c_str());
-    
+#else // Windows
+	Shader simpleDepthShader = Shader(
+		"../../../shaders/shadow-mapping-depth.vs",
+		"../../../shaders/shadow-mapping-depth.fs");
+	Shader debugDepthQuad(
+		"../../../shaders/debugQuad.vs",
+		"../../../shaders/debugQuadDepth.fs");
+	Shader shader(
+		"../../../shaders/shadow-mapping.vs",
+		"../../../shaders/shadow-mapping.fs");
+#endif
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float planeVertices[] = {
@@ -120,8 +131,12 @@ int main()
     
     // load textures
     // -------------
-    unsigned int woodTexture = loadTexture((path + string("/textures/wood.png")).c_str());
-    
+#ifdef __APPLE__
+	unsigned int woodTexture = loadTexture((path + string("/textures/wood.png")).c_str());
+#else
+	
+	unsigned int woodTexture = loadTexture(string("../../../textures/wood.png").c_str());
+#endif // __APPLE__   
     // configure depth map FBO
     // -----------------------
     const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;

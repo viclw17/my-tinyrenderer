@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\shaders\shadertoy.fs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\..\..\shaders\shadertoy.vs">
       <Filter>Resource Files</Filter>
     </None>
@@ -36,6 +33,15 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\..\..\shaders\shadertoy\simple-pbr.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\smallpt.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\shadertoy.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\cb.fs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

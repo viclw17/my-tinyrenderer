@@ -9,6 +9,9 @@ uniform vec3 iResolution;
 uniform float iTime;
 uniform sampler2D iChannel0;
 
+//void mainImage(out vec4, in vec2);
+//void main(void) { mainImage(fragColor, iResolution.xy); }
+
 /*
 uniform float     iTimeDelta;            // render time (in seconds)
 uniform int       iFrame;                // shader playback frame
@@ -36,7 +39,7 @@ void main(){
 
 
 // Progressive Mandelbrot Plotting
-const float RES = 10.;
+/*const float RES = 10.;
 const float max_iter = 100.;
 void main(){
     vec2 uv = (2.*fragCoord-iResolution.xy)/iResolution.y;
@@ -70,4 +73,5 @@ void main(){
 	vec4 texCol = texture(iChannel0, uv);
     col = (abs(uv.x)>1) ? texCol.xyz : col;
     fragColor = vec4(col,1);
-}
+}*/
+

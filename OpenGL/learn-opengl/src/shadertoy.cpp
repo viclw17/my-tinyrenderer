@@ -15,8 +15,8 @@
 void processInput(GLFWwindow *window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-const unsigned int SCR_WIDTH  = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH  = 400;//800;
+const unsigned int SCR_HEIGHT = 300;//600;
 
 int main() {
     // glfw: initialize and configure
@@ -52,7 +52,7 @@ int main() {
     #ifdef __APPLE__
     Shader ourShader = Shader(
         "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/shadertoy.vs",
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/pbr.fs"
+        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/smallpt.fs"
     );
     #else
     //Windows

@@ -20,8 +20,8 @@ unsigned int loadTexture(const char* path);
 unsigned int loadCubemap(vector<std::string> faces);
 
 // settings
-const unsigned int SCR_WIDTH  = 500;
-const unsigned int SCR_HEIGHT = 500;
+const unsigned int SCR_WIDTH  = 800;
+const unsigned int SCR_HEIGHT = 800;
 
 // camera
 //Camera camera = Camera(); // by default camera position at 0,0,0
@@ -77,8 +77,8 @@ int main() {
                               (path + string("/shaders/shader-lighting-simple.fs")).c_str());
     Shader floorShader((path + string("/shaders/unlit.vs")).c_str(),
                        (path + string("/shaders/unlit.fs")).c_str());
-    Shader screenShader((path + string("/shaders/framebuffers_screen.vs")).c_str(),
-                        (path + string("/shaders/framebuffers_screen.fs")).c_str());
+    Shader screenShader((path + string("/shaders/framebuffers-screen.vs")).c_str(),
+                        (path + string("/shaders/framebuffers-screen.fs")).c_str());
     Shader skyboxShader((path + string("/shaders/skybox.vs")).c_str(),
                         (path + string("/shaders/skybox.fs")).c_str());
     // load models

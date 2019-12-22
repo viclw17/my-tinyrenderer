@@ -7,7 +7,7 @@ out vec4 fragColor;
 // uniforms
 uniform vec3 iResolution;
 uniform float iTime;
-uniform sampler2D iChannel0;
+//uniform sampler2D iChannel0;
 
 /*
 uniform float     iTimeDelta;            // render time (in seconds)

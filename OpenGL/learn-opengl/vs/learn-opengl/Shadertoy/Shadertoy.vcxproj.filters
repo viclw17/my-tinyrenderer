@@ -56,6 +56,9 @@
     <None Include="..\..\..\shaders\shadertoy\shadertoy.vs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\..\shaders\shadertoy\simplept.fs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\includes\learnopengl\shader_victor.h">

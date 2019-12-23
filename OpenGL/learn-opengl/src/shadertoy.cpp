@@ -70,7 +70,7 @@ int main() {
         //"../../../shaders/shadertoy/shadertoy.vs",
         //"../../../shaders/shadertoy/smallpt.fs"
 		"../../../shaders/shadertoy/framebuffers.vs",
-		"../../../shaders/shadertoy/framebuffers.fs"
+		"../../../shaders/shadertoy/simplept.fs"
     );
 	Shader screenShader(
 		"../../../shaders/shadertoy/framebuffers_screen.vs",

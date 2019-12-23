@@ -157,6 +157,7 @@
     <None Include="..\..\..\shaders\shadertoy\shadertoy.fs" />
     <None Include="..\..\..\shaders\shadertoy\shadertoy.vs" />
     <None Include="..\..\..\shaders\shadertoy\simple-pbr.fs" />
+    <None Include="..\..\..\shaders\shadertoy\simplept.fs" />
     <None Include="..\..\..\shaders\shadertoy\smallpt.fs" />
   </ItemGroup>
   <ItemGroup>

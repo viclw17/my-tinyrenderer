@@ -7,26 +7,30 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "learnopengl/shader_victor.h"
+
 #include <iostream>
+using namespace std;
 
-#include <learnopengl/shader_victor.h>
-
-// callback
-void processInput(GLFWwindow *window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void processInput(GLFWwindow *window);
+unsigned int loadTexture(const char* path);
 
-const unsigned int SCR_WIDTH  = 400;//800;
-const unsigned int SCR_HEIGHT = 300;//600;
+const unsigned int SCR_WIDTH = 400;// 800;
+const unsigned int SCR_HEIGHT = 300;// 600;
+
+// timing
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
 
 int main() {
-    // glfw: initialize and configure
-    // ------------------------------
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); 
 #endif
 
     // glfw window creation
@@ -38,8 +42,11 @@ int main() {
     }
 
     glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);   
+	//glfwSetCursorPosCallback(window, mouse_callback);
 
+	// tell GLFW to capture our mouse
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // glad: load all OpenGL function pointers
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -47,19 +54,28 @@ int main() {
         return -1;
     }
 
+	// configure global opengl state
+	// -----------------------------
+	glEnable(GL_DEPTH_TEST);
+
     // Load/Compile/Link Shaders
-    //MacOS
     #ifdef __APPLE__
-    Shader ourShader = Shader(
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/shadertoy.vs",
-        "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/shaders/shadertoy/smallpt.fs"
+	char* projPath = "/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl";
+    Shader shader = Shader(
+		projPath+"/shaders/shadertoy/shadertoy.vs",
+		projPath+"/shaders/shadertoy/shadertoy.fs"
     );
     #else
-    //Windows
-    Shader ourShader = Shader(
-        "../../../shaders/shadertoy/shadertoy.vs",
-        "../../../shaders/shadertoy/pbr.fs"
+    Shader shader(
+        //"../../../shaders/shadertoy/shadertoy.vs",
+        //"../../../shaders/shadertoy/smallpt.fs"
+		"../../../shaders/shadertoy/framebuffers.vs",
+		"../../../shaders/shadertoy/framebuffers.fs"
     );
+	Shader screenShader(
+		"../../../shaders/shadertoy/framebuffers_screen.vs",
+		"../../../shaders/shadertoy/framebuffers_screen.fs"
+	);
     #endif
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -72,6 +88,14 @@ int main() {
         -1.0f, -1.0f,  0.0f,   0.0f,		0.0f,		// BL
         -1.0f,  1.0f,  0.0f,   0.0f,		yFragAmount // UL
     };
+
+	float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		// positions   // texCoords
+		 1.0f,  1.0f,  0.0f,   1.0f,	1.0f,// UR
+		 1.0f, -1.0f,  0.0f,   1.0f,	0.0f,// BR
+		-1.0f, -1.0f,  0.0f,   0.0f,	0.0f,// BL
+		-1.0f,  1.0f,  0.0f,   0.0f,	1.0f // UL
+	};
     
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -82,8 +106,6 @@ int main() {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
-
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     // bind VAO
     glBindVertexArray(VAO);
     // copy vertices array in a vertex buffer
@@ -92,98 +114,132 @@ int main() {
     // copy indices array in a element buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    
-    // set the vertex attributes pointers
-    //layout (location = 0) in vec3 aPos;
-    //layout (location = 1) in vec3 aColor;
-    //layout (location = 2) in vec2 aTexCoord;
-    // position attribute
-    // (index,size,normalized,stride,offset)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-    
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
-    // remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
-//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-    glBindVertexArray(0);
+
+	unsigned int quadVBO, quadVAO, quadEBO;
+	glGenVertexArrays(1, &quadVAO);
+	glGenBuffers(1, &quadVBO);
+	glGenBuffers(1, &quadEBO);
+	// bind VAO
+	glBindVertexArray(quadVAO);
+	// copy vertices array in a vertex buffer
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+	// copy indices array in a element buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quadEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
 
     // load and create a texture
-    unsigned int texture0;
-    glGenTextures(1, &texture0);
-    glBindTexture(GL_TEXTURE_2D, texture0);
-    // all upcoming GL_TEXTURE_2D operations now have effect on this "texture" object
-    // set texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // default wrapping method
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load image
-    int width, height, nrChannels;
-	unsigned char* data;
-#ifdef __APPLE__
-	data = stbi_load("/Users/wei_li/Git/my-tinyrenderer/OpenGL/learn-opengl/textures/parchment.jpg",
-                                    &width, &height, &nrChannels, 0);
-#else
-	data = stbi_load("../../../textures/parchment.jpg",
-		&width, &height, &nrChannels, 0);
-#endif
-    if (data) {
-        // create texture
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D); // generate mipmaps
-    }
-    else{
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    stbi_image_free(data);
+	unsigned int cubeTexture = loadTexture("../../../textures/parchment.jpg");
 
-    
-    
-    // get and set unifroms, here only do once
-	// tell opengl for each sampler to which texture unit it belongs to
-    ourShader.use(); // don't forget to activate/use the shader before setting uniforms!
-    unsigned int texture0Loc = glGetUniformLocation(ourShader.ID, "iChannel0");
-    glUniform1i(texture0Loc, 0); // set it manually
-    //ourShader.setInt("iChannel0", 0); // glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
-
+	
 	glm::vec3 iResolution(xFragAmount, yFragAmount, 1);
-	ourShader.setVec3("iResolution", iResolution);
+
+	
+
+	// framebuffer configuration
+	// -------------------------
+	unsigned int framebuffer;
+	glGenFramebuffers(1, &framebuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+	unsigned int iChannel0;
+	glGenTextures(1, &iChannel0);
+	glBindTexture(GL_TEXTURE_2D, iChannel0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, iChannel0, 0);
+
+	// create a color attachment texture
+	unsigned int textureColorbuffer;
+	glGenTextures(1, &textureColorbuffer);
+	glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+
+
+	// create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
+	unsigned int rbo;
+	glGenRenderbuffers(1, &rbo);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT); // use a single renderbuffer object for both a depth AND stencil buffer.
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
+	// now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+	shader.use();
+	shader.setInt("iChannel0", 0);
+	shader.setVec3("iResolution", iResolution);
+
+	screenShader.use();
+	screenShader.setInt("screenTexture", 0);
+	screenShader.setVec3("iResolution", iResolution);
+
     
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	int iFrame = 0;
     // render loop
     while (!glfwWindowShouldClose(window))
     {
+		// per-frame time logic
+		// --------------------
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		iFrame++;
+
         // input
         processInput(window);
 
-        // clean up
+		// render
+		// ------
+		// bind to framebuffer and draw scene as we normally would to color texture 
+		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+		glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
         glClearColor(0,0,0, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+       
 
-        ourShader.use();
-        
-        // get and set uniform, here do on every loop
-        float iTime = glGetUniformLocation(ourShader.ID, "iTime");
-        glUniform1f(iTime, glfwGetTime());
-		
-        // bind textures on corresponding texture units
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture0);
+		glClear(GL_COLOR_BUFFER_BIT);
 
+		shader.use();
+		shader.setInt("iFrame", iFrame);
+		shader.setFloat("iTime", glfwGetTime());
         glBindVertexArray(VAO);
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        //glBindVertexArray(0);
+
+
+
+
+		// now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		screenShader.use();
+		screenShader.setInt("iFrame", iFrame);
+		glBindVertexArray(quadVAO);
+		glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+;
+		
         
         // glfw: swap buffers and poll IO events
         glfwSwapBuffers(window);
@@ -191,9 +247,9 @@ int main() {
     }
 
     // optional: de-allocate all resources once they've outlived their purpose:
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    //glDeleteVertexArrays(1, &VAO);
+    //glDeleteBuffers(1, &VBO);
+    //glDeleteBuffers(1, &EBO);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     glfwTerminate();
@@ -220,3 +276,63 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 }
 
 
+// glfw: whenever the mouse moves, this callback is called
+// -------------------------------------------------------
+/*
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.ProcessMouseMovement(xoffset, yoffset);
+}
+*/
+
+// utility function for loading a 2D texture from file
+// ---------------------------------------------------
+unsigned int loadTexture(char const* path)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+
+	int width, height, nrComponents;
+	unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
+	if (data)
+	{
+		GLenum format;
+		if (nrComponents == 1)
+			format = GL_RED;
+		else if (nrComponents == 3)
+			format = GL_RGB;
+		else if (nrComponents == 4)
+			format = GL_RGBA;
+
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		stbi_image_free(data);
+	}
+	else
+	{
+		std::cout << "Texture failed to load at path: " << path << std::endl;
+		stbi_image_free(data);
+	}
+
+	return textureID;
+}

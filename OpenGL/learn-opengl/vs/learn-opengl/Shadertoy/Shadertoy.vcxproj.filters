@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\shaders\shadertoy.vs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\..\..\shaders\shadertoy\raytracing.fs">
       <Filter>Resource Files</Filter>
     </None>
@@ -44,9 +41,27 @@
     <None Include="..\..\..\shaders\shadertoy\cb.fs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\..\shaders\shadertoy\framebuffers.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\framebuffers.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\framebuffers_screen.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\framebuffers_screen.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\shaders\shadertoy\shadertoy.vs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\includes\learnopengl\shader_victor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\includes\learnopengl\camera_victor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

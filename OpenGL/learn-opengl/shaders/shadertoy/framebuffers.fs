@@ -1,4 +1,7 @@
 #version 330 core
+
+layout (location = 0) out vec3 iChannel0;
+
 // in out
 in vec2 fragCoord;
 out vec4 fragColor;
@@ -6,31 +9,10 @@ out vec4 fragColor;
 // uniforms
 uniform vec3 iResolution;
 uniform float iTime;
-uniform sampler2D iChannel0;
-/*
+uniform int iFrame;
+//uniform sampler2D iChannel0;
 
-This shader is an attempt at porting smallpt to GLSL.
 
-See what it's all about here:
-http://www.kevinbeason.com/smallpt/
-
-The code is based in particular on the slides by David Cline.
-
-Some differences:
-
-- For optimization purposes, the code considers there is
-  only one light source (see the commented loop)
-- Russian roulette and tent filter are not implemented
-
-I spent quite some time pulling my hair over inconsistent
-behavior between Chrome and Firefox, Angle and native. I
-expect many GLSL related bugs to be lurking, on top of
-implementation errors. Please Let me know if you find any.
-
---
-Zavie
-
-*/
 
 
 // Play with the two following values to change quality.
@@ -187,6 +169,20 @@ void main( ) {
         color += radiance(Ray(camPos, normalize(.53135 * (iResolution.x/iResolution.y*uv.x * cx + uv.y * cy) + cz)));
 #endif
     }
-    fragColor = vec4(pow(clamp(color/float(SAMPLES), 0., 1.), vec3(1./2.2)), 1.);
-    //fragColor = vec4(1,0,0,1);
+	
+	vec3 col = vec4(pow(clamp(color/float(SAMPLES), 0., 1.), vec3(1./2.2)), 1.).rgb;
+	
+	
+	//#define MAX_WEIGHT 100.0
+    //vec3 previousColor = texture(iChannel0, fragCoord).rgb;
+    //float weight = min(float(iFrame + 1), float(MAX_WEIGHT)); 
+    // Resetting weight on mouse change.
+    //if (!all(lessThanEqual(iMouse.zw, vec2(0.0)))) 
+    //    weight = 1.0;
+    //vec3 newColor = mix(previousColor, col, 1.0 / weight);
+    //fragColor = vec4(newColor, 1.0);
+	iChannel0.rgb = col;
+	fragColor = vec4(col,1);
+	//col += texture(screenTexture, fragCoord).rgb * float(iFrame);
+	//fragColor = vec4(col / (float(iFrame + 1)), 1.);
 }
